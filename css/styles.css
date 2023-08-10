@@ -1,0 +1,294 @@
+:root {
+  --background-color: #cad2c5;
+  --light-color: #84a98c;
+  --meduim-color: #52796f;
+  --dark-color: #354f52;
+  --white-color: #f7f7f7;
+  --main-background-color: #f1fdf3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+}
+
+main {
+  position: relative;
+  background-color: #ebe9e9;
+  width: 100%;
+  padding: 1rem;
+}
+
+/*  Sidebar Menu   */
+.global-sidebar {
+  width: 240px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  color: #fff;
+  overflow: hidden;
+  transition: all 0.5s linear;
+  padding: 0 1.7rem;
+  background-color: var(--dark-color);
+}
+
+.header {
+  margin: 25px 0px;
+}
+.global-sidebar h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.global-sidebar img {
+  max-width: 100%;
+  display: block;
+  margin: 15px auto;
+}
+
+.menu-sidebar {
+  height: 88%;
+  position: relative;
+  list-style: none;
+  padding: 0;
+}
+
+.menu-sidebar ul {
+  list-style-type: none;
+}
+
+.menu-sidebar ul li {
+  padding: 1rem;
+  margin: 8px 0;
+  border-radius: 8px;
+  transition: all 0.5s ease-in-out;
+}
+
+.menu-sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.menu-sidebar ul li a span {
+  overflow: hidden;
+}
+
+.menu-sidebar ul li a i {
+  font-size: 1.2rem;
+}
+
+.menu-sidebar li:hover,
+.active {
+  background-color: var(--light-color);
+}
+
+/* Home Screen */
+.home {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.home h2 {
+  font-size: 35px;
+  color: var(--dark-color);
+}
+
+#search-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#search-box {
+  background: rgb(237, 237, 237);
+  border-radius: 10px;
+  color: var(--dark-color);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+}
+
+#search-box i {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+
+#search-box i:hover {
+  transform: scale(1.2);
+}
+
+#search-box input {
+  background: transparent;
+  padding: 10px;
+}
+#search-container img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.overview {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 1rem 0;
+}
+
+.overview h2 {
+  margin-bottom: 20px;
+  font-size: 25px;
+  color: var(--dark-color);
+}
+
+.overview-container {
+  display: flex; /* Line up the cards in a row */
+  justify-content: space-between; /* Distribute the cards equally */
+}
+
+.overview-card {
+  flex: 1; /* Make sure all cards take equal width */
+  border-right: 1px solid black; /* Thin black line on the right of each card */
+  padding: 10px; /* Some internal spacing */
+}
+
+.overview-card:last-child {
+  border-right: none; /* Remove the border from the last card */
+}
+
+.overview-title {
+  display: flex; /* Align icon and title in a row */
+  justify-content: center;
+  margin-bottom: 25px; /* Space between title and revenue */
+  gap: 10px;
+}
+
+.overview-title h3 {
+  font-size: 18px;
+}
+
+.overview-title i {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.overview-details i {
+  font-size: 25px;
+  /* font-weight: 150; */
+  margin-right: 10px;
+}
+
+.overview-details p {
+  font-size: 30px;
+}
+.overview-details {
+  display: flex;
+  justify-content: center; /* Center the revenue content */
+}
+
+.client {
+  background-color: #fff;
+  margin: 1rem 0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.client h2 {
+  margin-bottom: 20px;
+  font-size: 25px;
+  color: var(--dark-color);
+}
+
+.table-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: var(--light-color);
+  color: #fff;
+}
+
+th {
+  padding: 15px;
+  text-align: left;
+}
+
+tbody {
+  background: #f2f2f2;
+}
+
+td {
+  padding: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background: #fff;
+}
+
+tfoot {
+  background: var(--background-color);
+  font-weight: bold;
+  color: #fff;
+}
+
+tfoot td {
+  padding: 15px;
+}
+
+.table-container button {
+  color: #0056b3;
+  background: none;
+  cursor: pointer;
+}
+
+.quick-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 1rem 0;
+}
+
+.quick-menu button {
+  margin: 10px;
+  padding: 10px 15px;
+  border: none;
+  background-color: var(--meduim-color);
+  color: white;
+  border-radius: 4px;
+}
+
+.quick-menu button:hover {
+  background-color: #0056b3;
+}
