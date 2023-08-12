@@ -292,3 +292,10 @@ tfoot td {
 .quick-menu button:hover {
   background-color: #0056b3;
 }
+
+
+#client-popup {
+  display: none;
+  /* More styles like positioning, overlay, etc., can be added for better UX */
+}
+
