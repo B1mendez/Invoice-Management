@@ -1,13 +1,22 @@
 function init() {
-    let el = document.getElementById("add-client");
-    el.addEventListener("click", function () {
+    let add = document.getElementById("add-client");
+    add.addEventListener("click", function () {
         showForm();
+    });
+
+    let close = document.getElementById("close-button");
+    close.addEventListener("click", function () {
+        hideForm();
     });
     document.querySelector('#client-popup form').addEventListener('submit', handleFormSubmission);
 }
 
 function showForm() {
     document.getElementById("client-popup").style.display = "block";
+}
+
+function hideForm() {
+    document.getElementById("client-popup").style.display = "none";
 }
 
 function handleFormSubmission(e) {
@@ -138,7 +147,7 @@ function editClient(clientData, row) {
     document.getElementById('amount').value = clientData.amount;
     document.getElementById('status').value = clientData.status;
     
-    currentEditingRow = row; // Store the current row being edited
+    currentEditingRow = row; 
     originalName = clientData.name;
     
     showForm();
@@ -154,13 +163,21 @@ function deleteClient(clientData, row) {
     localStorage.setItem("clients", JSON.stringify(clients));
 }
 
+function calculateMonthlyRevenue(){
+    let totalPaidAmount = clients
+        .filter(client => client.status === 'Paid')
+        .reduce((total, client) => total + parseFloat(client.amount), 0);
+
+    return totalPaidAmount;
+}
+
 function updateOverviewCards() {
     let totalClients = clients.length;
     let unpaidClients = clients.filter(client => client.status === 'Unpaid').length;
-    // // If you have a mechanism to determine monthly revenue and estimates, calculate them here
-    // let monthlyRevenue = /* calculation */;
-    // let estimatesMade = /* calculation */;
+    let monthlyRevenue = calculateMonthlyRevenue();
+    //let estimatesMade = /* calculation */;
     
+    document.getElementById('monthly-revenue').textContent = monthlyRevenue;
     document.getElementById('total-client').textContent = totalClients;
     document.getElementById('unpaid-client').textContent = unpaidClients;
 }
