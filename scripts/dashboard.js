@@ -47,12 +47,10 @@ function updateClient() {
         clients[index] = updatedClient;
     }
 
-    // Save the updated clients array to local storage
     localStorage.setItem("clients", JSON.stringify(clients));
-
-    // Reset the edit mode
     currentEditingRow = null;
     originalName = null;
+    updateOverviewCards();   
 }
 
 function addClient() {
@@ -69,6 +67,13 @@ function addClient() {
     row.insertCell(2).textContent = amount;
     row.insertCell(3).textContent = status;    
     // You can also add actions like delete or edit in the last cell if required.
+    let editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.onclick = function() {
+        editClient(clientData, row);
+    };
+    row.insertCell(4).appendChild(editBtn); 
+
     let deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
     deleteBtn.onclick = function() {
@@ -85,6 +90,8 @@ function addClient() {
 
     clients.push(clientData);
     localStorage.setItem("clients", JSON.stringify(clients));
+    document.querySelector('#client-popup form').reset();
+    updateOverviewCards();
 }
 
 function displayClients() {
@@ -109,7 +116,6 @@ function addClientRow(clientData) {
     row.insertCell(2).textContent = clientData.amount;
     row.insertCell(3).textContent = clientData.status;
     
-    // Actions, such as delete
     let editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
     editBtn.onclick = function() {
@@ -117,7 +123,6 @@ function addClientRow(clientData) {
     };
     row.insertCell(4).appendChild(editBtn); 
     
-    // Delete button
     let deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
     deleteBtn.onclick = function() {
@@ -137,20 +142,34 @@ function editClient(clientData, row) {
     originalName = clientData.name;
     
     showForm();
+    updateOverviewCards();
 }
 
 function deleteClient(clientData, row) {
     let tbody = document.getElementById('client-table-body');
     tbody.removeChild(row);
 
-    // Also remove this client from the clients array and update local storage
-    clients = clients.filter(c => c.name !== clientData.name); // Assuming names are unique
+    clients = clients.filter(c => c.name !== clientData.name);
+    updateOverviewCards()
     localStorage.setItem("clients", JSON.stringify(clients));
 }
+
+function updateOverviewCards() {
+    let totalClients = clients.length;
+    let unpaidClients = clients.filter(client => client.status === 'Unpaid').length;
+    // // If you have a mechanism to determine monthly revenue and estimates, calculate them here
+    // let monthlyRevenue = /* calculation */;
+    // let estimatesMade = /* calculation */;
+    
+    document.getElementById('total-client').textContent = totalClients;
+    document.getElementById('unpaid-client').textContent = unpaidClients;
+}
+
 
 window.addEventListener("DOMContentLoaded", function() {
     init();
     displayClients();
+    updateOverviewCards();
 });
 
 let clients = JSON.parse(localStorage.getItem("clients")) || [];

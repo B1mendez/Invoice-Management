@@ -293,9 +293,22 @@ tfoot td {
   background-color: #0056b3;
 }
 
-
 #client-popup {
   display: none;
-  /* More styles like positioning, overlay, etc., can be added for better UX */
+  max-height: 90vh;
+  max-width: fit-content;
+  min-height: fit-content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(3px) saturate(100%) contrast(45%) brightness(130%);
+  border-radius: 15px;
+  box-shadow: 0 0 1rem 0 rgba(0 0 0 / 20%);
+  padding: 3% 3% 2%;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 10;
 }
 
