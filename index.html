@@ -12,6 +12,9 @@
       crossorigin="anonymous"
     ></script>
     <script src="/scripts/dashboard.js"></script>
+    <script src="/scripts/invoice.js"></script>
+    <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+
   </head>
 
   <body>
@@ -69,7 +72,7 @@
         <h2>Overview</h2>
         <div class="overview-container">
           <article class="overview-card">
-            <div class="overview-title">
+            <div class="overview-title" style="color: green;">
               <i class="fa-solid fa-arrow-up-right-dots"></i>
               <h3>Monthly Revenue</h3>
             </div>
@@ -79,7 +82,7 @@
             </div>
           </article>
           <article class="overview-card">
-            <div class="overview-title">
+            <div class="overview-title" style="color: blue;">
               <i class="fa-solid fa-users"></i>
               <h3>Total Clients</h3>
             </div>
@@ -88,7 +91,7 @@
             </div>
           </article>
           <article class="overview-card">
-            <div class="overview-title">
+            <div class="overview-title" style="color: red;">
               <i class="fa-solid fa-list"></i>
               <h3>Unpaid Clients</h3>
             </div>
@@ -97,7 +100,7 @@
             </div>
           </article>
           <article class="overview-card">
-            <div class="overview-title">
+            <div class="overview-title" style="color: brown;">
               <i class="fa-solid fa-chart-simple"></i>
               <h3>Estimates Revenue</h3>
             </div>
@@ -133,7 +136,7 @@
 
       <section class="quick-menu">
         <button id="add-client">Add Client</button>
-        <button>Create Invoice</button>
+        <button id="add-invoice">Create Invoice</button>
         <button>Create Estimate</button>
       </section>
 
