@@ -83,13 +83,6 @@ function addClient() {
     };
     row.insertCell(4).appendChild(editBtn); 
 
-    let deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.onclick = function() {
-        tbody.removeChild(row);
-    };
-    row.insertCell(4).appendChild(deleteBtn);
-
     let clientData = {
         name: name,
         description: description,
@@ -131,13 +124,6 @@ function addClientRow(clientData) {
         editClient(clientData, row);
     };
     row.insertCell(4).appendChild(editBtn); 
-    
-    let deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.onclick = function() {
-        deleteClient(clientData, row);
-    };
-    row.insertCell(4).appendChild(deleteBtn);
 }
 
 function editClient(clientData, row) {
@@ -149,18 +135,30 @@ function editClient(clientData, row) {
     
     currentEditingRow = row; 
     originalName = clientData.name;
-    
+
+    let deleteBtn = document.getElementById("delete-button");
+    document.getElementById("delete-button").style.display = "block";
+    deleteBtn.onclick = function() {
+        deleteClient(clientData, row);
+    };
     showForm();
     updateOverviewCards();
 }
 
 function deleteClient(clientData, row) {
-    let tbody = document.getElementById('client-table-body');
-    tbody.removeChild(row);
+    let confirmation = window.confirm("Are you sure you want to delete this client?");
+    if (confirmation) {
+        let tbody = document.getElementById('client-table-body');
+        tbody.removeChild(row);
 
-    clients = clients.filter(c => c.name !== clientData.name);
-    updateOverviewCards()
-    localStorage.setItem("clients", JSON.stringify(clients));
+        clients = clients.filter(c => c.name !== clientData.name);
+        
+        updateOverviewCards();
+        localStorage.setItem("clients", JSON.stringify(clients));
+
+        hideForm(); 
+        document.querySelector('#client-popup form').reset();
+    }
 }
 
 function calculateMonthlyRevenue(){
