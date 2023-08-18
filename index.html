@@ -172,7 +172,25 @@
         </form>
       </div>
 
-      <select id="clientSelect"></select>
+      <div id="invoice-popup">
+        <form>
+          <button id="invoice-close-button" aria-label="Close alert" type="button">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <select id="clientSelect"></select> <br>
+
+          <label for="trim">Trim:</label><br />
+          <input type="number" id="trim" name="Trim" /><br />
+          <label for="cleanUp">Clean-up:</label><br />
+          <input type="number" id="cleanUp" name="Clean-Up" /><br />
+          <label for="irrigation">Irrigation:</label><br />
+          <input type="number" id="irrigation" name="Irrigation" /><br />
+          <label for="plant">Plants:</label><br />
+          <input type="number" id="plant" name="Plant" /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
     </main>
   </body>
 </html>
