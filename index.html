@@ -175,22 +175,48 @@
       <div id="invoice-popup">
         <form>
           <button id="invoice-close-button" aria-label="Close alert" type="button">
-            <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true">&times;</span>
           </button>
-
-          <select id="clientSelect"></select> <br>
-          <label for="trim">Trim:</label><br />
-          <input type="number" id="trim" name="Trim" /><br />
-          <label for="cleanUp">Clean-up:</label><br />
-          <input type="number" id="cleanUp" name="Clean-Up" /><br />
-          <label for="irrigation">Irrigation:</label><br />
-          <input type="number" id="irrigation" name="Irrigation" /><br />
-          <label for="plant">Plants:</label><br />
-          <input type="number" id="plant" name="Plant" /><br />
-          <label for="other">Other</label><br />
-          <input type="number" id="other" name="other" /><br />
+      
+          <select id="clientSelect"></select>
+      
+          <div class="row">
+              <label for="trim">Trim:</label>
+              <input type="number" id="trim" name="Trim" />
+              <label for="rateTrim">Rate:</label>
+              <input type="number" id="rateTrim" name="Rate" />
+          </div>
+      
+          <div class="row">
+              <label for="cleanUp">Clean-up:</label>
+              <input type="number" id="cleanUp" name="Clean-Up" />
+              <label for="rateCleanUp">Rate:</label>
+              <input type="number" id="rateCleanUp" name="Rate" />
+          </div>
+      
+          <div class="row">
+              <label for="irrigation">Irrigation:</label>
+              <input type="number" id="irrigation" name="Irrigation" />
+              <label for="rateIrrigation">Rate:</label>
+              <input type="number" id="rateIrrigation" name="Rate" />
+          </div>
+      
+          <div class="row">
+              <label for="plant">Plants:</label>
+              <input type="number" id="plant" name="Plant" />
+              <label for="ratePlants">Rate:</label>
+              <input type="number" id="ratePlants" name="Rate" />
+          </div>
+      
+          <div class="row">
+              <label for="other">Other:</label>
+              <input type="number" id="other" name="other" />
+              <label for="rateOther">Rate:</label>
+              <input type="number" id="rateOther" name="Rate" />
+          </div>
+      
           <input type="submit" value="Submit" />
-        </form>
+      </form>
       </div>
     </main>
   </body>

@@ -4,44 +4,72 @@ function getClient(clientName) {
 }
 
 async function generateInvoice(client, additionalServices = []) {
-  const { PDFDocument, rgb, StandardFonts } = PDFLib;
-  const url = "/assets/Invoice.pdf";
-  const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
-
+  const { PDFDocument, StandardFonts } = PDFLib;
+  const existingPdfBytes = await fetch("/assets/Invoice.pdf").then((res) => res.arrayBuffer());
   let pdfDoc = await PDFDocument.load(existingPdfBytes);
-  let customFont = await pdfDoc.embedFont(StandardFonts.CourierBold);
-  let priceFont = await pdfDoc.embedFont(StandardFonts.Courier);
 
-  let pages = pdfDoc.getPages();
-  let firstPage = pages[0];
+  const customFont = await pdfDoc.embedFont(StandardFonts.CourierBold);
+  const priceFont = await pdfDoc.embedFont(StandardFonts.Courier);
+  const firstPage = pdfDoc.getPages()[0];
 
-  let fontSize = 12;
-  let spacing = 2;
+  drawDate(firstPage, customFont, client);
+  drawName(firstPage, customFont, client);
+  drawAddress(firstPage, customFont, client);
+  drawServiceDetails(firstPage, priceFont, customFont, client, additionalServices);
 
-  //General Information positioning
-  let xPositionInfo = 179.28;
-  let yPositionDate = 589.56;
-  let yPositionName = 563.56;
-  let yPositionAddress = 536.32;
+  let pdfBytes = await pdfDoc.save();
+  download(pdfBytes, `${client.name}-Invoice.pdf`, "application/pdf");
+}
 
-  //additionalServices positioning
-  let xPositionPrice = 480;
-  let xPositionRate = 403.2;
+function drawText(page, font, text, xPos, yPos, size, spacing) {
+  for (let i = 0; i < text.length; i++) {
+    page.drawText(text[i], {
+      x: xPos,
+      y: yPos,
+      size: size,
+      font: font,
+    });
+    xPos += font.widthOfTextAtSize(text[i], size) + spacing;
+  }
+}
 
-  let yPositionServicePrice = 402.5;
-  let yPositionTrimPrice = 368.66;
-  let yPositionCleanUpPrice = 335.96;
-  let yPositionIrrigationPrice = 302.26;
-  let yPositionPlantsPrice = 268.56;
-  let yPositionOtherPrice = 234.86;
-  let yPositionTotalPrice = 200.86;
+function drawDate(page, font, client) {
+  let dateTemplate = getLastDayOfMonth();
+  drawText(page, font, dateTemplate, 179.28, 589.56, 12, 2);
+}
 
+function drawName(page, font, client) {
+  let name = client.name.toUpperCase();
+  drawText(page, font, name, 179.28, 563.56, 12, 2);
+}
+
+function drawAddress(page, font, client) {
+  let address = client.description.toUpperCase();
+  drawText(page, font, address, 179.28, 536.32, 12, 2);
+}
+
+function drawServiceDetails(page, priceFont, customFont, client, additionalServices) {
+  const serviceDetailsConfig = [
+    { service: 'trim', yPos: 368.66 },
+    { service: 'cleanUp', yPos: 335.96 },
+    { service: 'irrigation', yPos: 302.26 },
+    { service: 'plants', yPos: 268.56 },
+    { service: 'other', yPos: 234.86 },
+  ];
   let totalPrice = parseFloat(client.amount);
-  
-  // Date template 
-  let date = new Date();
-  let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  let monthNames = [
+  for (let detail of serviceDetailsConfig) {
+    let serviceValue = additionalServices[detail.service];
+    if (serviceValue) {
+      drawText(page, priceFont, `$ ${serviceValue}.00`, 480, detail.yPos, 12, 0);
+      totalPrice += parseFloat(serviceValue);
+    }
+  }
+
+  drawText(page, customFont, `$ ${totalPrice.toFixed(2)}`, 480, 200.86, 14, 0);
+}
+
+function getLastDayOfMonth() {
+  const monthNames = [
     "JANUARY",
     "FEBRUARY",
     "MARCH",
@@ -55,90 +83,9 @@ async function generateInvoice(client, additionalServices = []) {
     "NOVEMBER",
     "DECEMBER",
   ];
-  let formattedDate = `${
-    monthNames[lastDay.getMonth()]
-  } ${lastDay.getDate()}, ${lastDay.getFullYear()}`;
-  let xPosDate = xPositionInfo;
-  for (let i = 0; i < formattedDate.length; i++) {
-    firstPage.drawText(formattedDate[i], {
-      x: xPosDate,
-      y: yPositionDate,
-      size: fontSize,
-      font: customFont,
-      color: rgb(0, 0, 0),
-    });
-    xPosDate += customFont.widthOfTextAtSize(formattedDate[i], 12) + spacing;
-  }
-
-  // Client's name
-  let name = client.name.toUpperCase();
-  let xPosName = xPositionInfo;
-  for (let i = 0; i < name.length; i++) {
-    firstPage.drawText(name[i], {
-      x: xPosName,
-      y: yPositionName,
-      size: fontSize,
-      font: customFont,
-      color: rgb(0, 0, 0),
-    });
-    xPosName += customFont.widthOfTextAtSize(name[i], 12) + spacing;
-  }
-
-  let addr = client.description.toUpperCase();
-  let xPosAddr = xPositionInfo;
-  for (let i = 0; i < addr.length; i++) {
-    firstPage.drawText(addr[i], {
-      x: xPosAddr,
-      y: yPositionAddress,
-      size: fontSize,
-      font: customFont,
-      color: rgb(0, 0, 0),
-    });
-    xPosAddr += customFont.widthOfTextAtSize(addr[i], 12) + spacing;
-  }
-
-  firstPage.drawText(`$ ${client.amount}.00`, {
-    x: xPositionPrice,
-    y: yPositionServicePrice,
-    size: fontSize,
-    font: priceFont,
-    color: rgb(0, 0, 0),
-  });
-
-  let serviceDetails = [
-    { service: 'trim', yPos: yPositionTrimPrice },
-    { service: 'cleanUp', yPos: yPositionCleanUpPrice },
-    { service: 'irrigation', yPos: yPositionIrrigationPrice },
-    { service: 'plants', yPos: yPositionPlantsPrice },
-    { service: 'other', yPos: yPositionOtherPrice },
-  ];
-  
-  for (let detail of serviceDetails) {
-    let serviceValue = additionalServices[detail.service];
-    if (serviceValue) { // only draw if there's a value
-      firstPage.drawText(`$ ${serviceValue}.00`, {
-        x: xPositionPrice,
-        y: detail.yPos,
-        size: fontSize,
-        font: priceFont,
-        color: rgb(0, 0, 0),
-      });
-      totalPrice = totalPrice + parseFloat(serviceValue);
-    }
-  }
-
-  firstPage.drawText(`$ ${totalPrice.toFixed(2)}`, {
-    x: xPositionPrice,
-    y: yPositionTotalPrice,
-    size: fontSize+2,
-    font: customFont,
-    color: rgb(0, 0, 0),
-  });
-  
-  
-  let pdfBytes = await pdfDoc.save();
-
-  download(pdfBytes, `${client.name}-Invoice.pdf`, "application/pdf");
+  const date = new Date();
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  return `${monthNames[lastDay.getMonth()]} ${lastDay.getDate()}, ${lastDay.getFullYear()}`;
 }
 
 function populateClientsDropdown() {
