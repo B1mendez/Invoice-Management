@@ -3,7 +3,7 @@ function getClient(clientName) {
   return allClients.find((client) => client.name === clientName) || null;
 }
 
-async function generateInvoice(client, additionalServices = []) {
+async function generateInvoice(client, additionalServices = [], additionServicesRate = []) {
   const { PDFDocument, StandardFonts } = PDFLib;
   const existingPdfBytes = await fetch("/assets/Invoice.pdf").then((res) => res.arrayBuffer());
   let pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -12,10 +12,10 @@ async function generateInvoice(client, additionalServices = []) {
   const priceFont = await pdfDoc.embedFont(StandardFonts.Courier);
   const firstPage = pdfDoc.getPages()[0];
 
-  drawDate(firstPage, customFont, client);
+  drawDate(firstPage, customFont);
   drawName(firstPage, customFont, client);
   drawAddress(firstPage, customFont, client);
-  drawServiceDetails(firstPage, priceFont, customFont, client, additionalServices);
+  drawServiceDetails(firstPage, priceFont, customFont, client, additionalServices, additionServicesRate);
 
   let pdfBytes = await pdfDoc.save();
   download(pdfBytes, `${client.name}-Invoice.pdf`, "application/pdf");
@@ -33,7 +33,7 @@ function drawText(page, font, text, xPos, yPos, size, spacing) {
   }
 }
 
-function drawDate(page, font, client) {
+function drawDate(page, font) {
   let dateTemplate = getLastDayOfMonth();
   drawText(page, font, dateTemplate, 179.28, 589.56, 12, 2);
 }
@@ -50,19 +50,24 @@ function drawAddress(page, font, client) {
 
 function drawServiceDetails(page, priceFont, customFont, client, additionalServices) {
   const serviceDetailsConfig = [
-    { service: 'trim', yPos: 368.66 },
-    { service: 'cleanUp', yPos: 335.96 },
-    { service: 'irrigation', yPos: 302.26 },
-    { service: 'plants', yPos: 268.56 },
-    { service: 'other', yPos: 234.86 },
+      { service: 'service', yPos: 402.5 },
+      { service: 'trim', yPos: 368.66 },
+      { service: 'cleanUp', yPos: 335.96 },
+      { service: 'irrigation', yPos: 302.26 },
+      { service: 'plants', yPos: 268.56 },
+      { service: 'other', yPos: 234.86 }
   ];
-  let totalPrice = parseFloat(client.amount);
-  for (let detail of serviceDetailsConfig) {
-    let serviceValue = additionalServices[detail.service];
-    if (serviceValue) {
-      drawText(page, priceFont, `$ ${serviceValue}.00`, 480, detail.yPos, 12, 0);
-      totalPrice += parseFloat(serviceValue);
-    }
+
+  let totalPrice = 0;
+
+  for (let config of serviceDetailsConfig) {
+      let detail = additionalServices.find(s => s.service === config.service);
+      
+      if (detail && detail.value) {
+          drawText(page, priceFont, `$ ${detail.value}.00`, 480, config.yPos, 12, 0);
+          drawText(page, priceFont, `${detail.rate}`, 430, config.yPos, 12, 0); 
+          totalPrice += parseFloat(detail.value);
+      }
   }
 
   drawText(page, customFont, `$ ${totalPrice.toFixed(2)}`, 480, 200.86, 14, 0);
@@ -124,22 +129,32 @@ function handleSubmit(event) {
   let plantValue = parseFloat(document.getElementById("plant").value) || 0;
   let otherValue = parseFloat(document.getElementById("other").value) || 0;
 
+  let rateService = parseFloat(document.getElementById("rateService").value) || 1;
+  let rateTrim = parseFloat(document.getElementById("rateTrim").value) || 1;
+  let rateCleanUp = parseFloat(document.getElementById("rateCleanUp").value) || 1;
+  let rateIrrigation = parseFloat(document.getElementById("rateIrrigation").value) || 1;
+  let ratePlant = parseFloat(document.getElementById("ratePlants").value) || 1;
+  let rateOther = parseFloat(document.getElementById("rateOther").value) || 1;
+
   let clientName = document.getElementById("clientSelect").value;
-  let client = getClient(clientName);
+    let client = getClient(clientName);
 
-  if (client) {
-    generateInvoice(client, {
-      trim: trimValue,
-      cleanUp: cleanUpValue,
-      irrigation: irrigationValue,
-      plants: plantValue,
-      other: otherValue,
-    });
-  }
+    if (client) {
+        let servicesList = [
+            { service: 'service', value: client.amount * rateService, rate: rateService },
+            { service: 'trim', value: trimValue * rateTrim, rate: rateTrim },
+            { service: 'cleanUp', value: cleanUpValue * rateCleanUp, rate: rateCleanUp},
+            { service: 'irrigation', value: irrigationValue * rateIrrigation, rate: rateIrrigation },
+            { service: 'plants', value: plantValue * ratePlant, rate: ratePlant},
+            { service: 'other', value: otherValue * rateOther, rate: rateOther},
+        ];
+        
+        generateInvoice(client, servicesList);
+    }
 
-  // Close the form after generating the invoice
-  document.querySelector('#invoice-popup form').reset();
-  closeInvoiceForm();
+    // Close the form after generating the invoice
+    document.querySelector('#invoice-popup form').reset();
+    closeInvoiceForm();
 }
 
 window.addEventListener("DOMContentLoaded", function () {

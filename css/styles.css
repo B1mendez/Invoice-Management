@@ -319,6 +319,7 @@ tfoot td {
 }
 
 #invoice-popup {
+  display: none;
   max-height: 90vh;
   max-width: fit-content;
   min-height: fit-content;
