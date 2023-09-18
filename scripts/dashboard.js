@@ -33,20 +33,22 @@ function handleFormSubmission(e) {
 
 function updateClient() {
     let name = document.getElementById('name').value;
-    let description = document.getElementById('description').value;
+    let address = document.getElementById('address').value;
+    let city = document.getElementById('city').value;
     let amount = document.getElementById('amount').value;
     let status = document.getElementById('status').value;
     
     // Update the displayed table
     currentEditingRow.cells[0].textContent = name;
-    currentEditingRow.cells[1].textContent = description;
+    currentEditingRow.cells[1].textContent = address;
     currentEditingRow.cells[2].textContent = amount;
     currentEditingRow.cells[3].textContent = status;
 
     // Update the clients array
     let updatedClient = {
         name: name,
-        description: description,
+        address: address, 
+        city: city,
         amount: amount,
         status: status
     };
@@ -57,6 +59,7 @@ function updateClient() {
     }
 
     localStorage.setItem("clients", JSON.stringify(clients));
+    document.querySelector('#client-popup form').reset();
     currentEditingRow = null;
     originalName = null;
     updateOverviewCards();   
@@ -64,7 +67,8 @@ function updateClient() {
 
 function addClient() {
     let name = document.getElementById('name').value;
-    let description = document.getElementById('description').value;
+    let address = document.getElementById('address').value;
+    let city = document.getElementById('city').value;
     let amount = document.getElementById('amount').value;
     let status = document.getElementById('status').value;
 
@@ -72,7 +76,7 @@ function addClient() {
     let row = tbody.insertRow();
 
     row.insertCell(0).textContent = name;
-    row.insertCell(1).textContent = description;
+    row.insertCell(1).textContent = address;
     row.insertCell(2).textContent = amount;
     row.insertCell(3).textContent = status;    
     // You can also add actions like delete or edit in the last cell if required.
@@ -85,7 +89,8 @@ function addClient() {
 
     let clientData = {
         name: name,
-        description: description,
+        address: address, 
+        city: city,
         amount: amount,
         status: status
     };
@@ -101,7 +106,8 @@ function displayClients() {
     clients.forEach(client => {
         let clientData = {
             name: client.name,
-            description: client.description,
+            address: client.address,
+            city: client.city,
             amount: client.amount,
             status: client.status
         };
@@ -114,7 +120,7 @@ function addClientRow(clientData) {
     let row = tbody.insertRow();
 
     row.insertCell(0).textContent = clientData.name;
-    row.insertCell(1).textContent = clientData.description;
+    row.insertCell(1).textContent = clientData.address;
     row.insertCell(2).textContent = clientData.amount;
     row.insertCell(3).textContent = clientData.status;
     
@@ -129,7 +135,8 @@ function addClientRow(clientData) {
 function editClient(clientData, row) {
     // Populate the form with the current data
     document.getElementById('name').value = clientData.name;
-    document.getElementById('description').value = clientData.description;
+    document.getElementById('address').value = clientData.address;
+    document.getElementById('city').value = clientData.city;
     document.getElementById('amount').value = clientData.amount;
     document.getElementById('status').value = clientData.status;
     

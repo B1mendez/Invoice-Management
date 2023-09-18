@@ -1,227 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Invoice Management</title>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <script
-      src="https://kit.fontawesome.com/81f487b25f.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/scripts/dashboard.js"></script>
-    <script src="/scripts/invoice.js"></script>
-    <script src="https://unpkg.com/pdf-lib"></script>
-    <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
-    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice Management</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="https://kit.fontawesome.com/81f487b25f.js" crossorigin="anonymous"></script>
+  <script src="/scripts/dashboard.js"></script>
+  <script src="/scripts/invoice.js"></script>
+  <script src="https://unpkg.com/pdf-lib"></script>
+  <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+  <script src="https://unpkg.com/downloadjs@1.4.7"></script>
 
 
-  </head>
+</head>
 
-  <body>
-    <!-- Dashboard Menu -->
-    <header class="global-sidebar">
-      <div class="header">
-        <img src="/images/logo.png" alt="InvoiSync" />
-        <h1>InvoiSync</h1>
+<body>
+  <!-- Dashboard Menu -->
+  <header class="global-sidebar">
+    <div class="header">
+      <img src="/images/inviosync.png" alt="InvoiSync" />
+      <h1>InvoiSync</h1>
+    </div>
+    <nav class="menu-sidebar">
+      <ul>
+        <li class="active">
+          <a href="#">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa-solid fa-users"></i>
+            <span>Client</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>Invoice</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Estimate</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="home">
+      <h2>Welcome to Your Dashboard</h2>
+      <!-- Search Icon -->
+      <div id="search-container">
+        <div id="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search" />
+        </div>
+        <img src="/images/company-logo.jpg" alt="daniel mendez landscaping logo" />
       </div>
-      <nav class="menu-sidebar">
-        <ul>
-          <li class="active">
-            <a href="#">
-              <i class="fas fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa-solid fa-users"></i>
-              <span>Client</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa-solid fa-file-invoice"></i>
-              <span>Invoice</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa-solid fa-chart-simple"></i>
-              <span>Estimate</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    </section>
 
-    <!-- Main Content -->
-    <main>
-      <section class="home">
-        <h2>Welcome to Your Dashboard</h2>
-        <!-- Search Icon -->
-        <div id="search-container">
-          <div id="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search" />
+    <section class="overview">
+      <h2>Overview</h2>
+      <div class="overview-container">
+        <article class="overview-card">
+          <div class="overview-title" style="color: green">
+            <i class="fa-solid fa-arrow-up-right-dots"></i>
+            <h3>Monthly Revenue</h3>
           </div>
-          <img
-            src="/images/company-logo.jpg"
-            alt="daniel mendez landscaping logo"
-          />
-        </div>
-      </section>
-
-      <section class="overview">
-        <h2>Overview</h2>
-        <div class="overview-container">
-          <article class="overview-card">
-            <div class="overview-title" style="color: green">
-              <i class="fa-solid fa-arrow-up-right-dots"></i>
-              <h3>Monthly Revenue</h3>
-            </div>
-            <div class="overview-details">
-              <i class="fa-solid fa-dollar-sign"></i>
-              <p id="monthly-revenue">0.00</p>
-            </div>
-          </article>
-          <article class="overview-card">
-            <div class="overview-title" style="color: blue">
-              <i class="fa-solid fa-users"></i>
-              <h3>Total Clients</h3>
-            </div>
-            <div class="overview-details">
-              <p id="total-client">0</p>
-            </div>
-          </article>
-          <article class="overview-card">
-            <div class="overview-title" style="color: red">
-              <i class="fa-solid fa-list"></i>
-              <h3>Unpaid Clients</h3>
-            </div>
-            <div class="overview-details">
-              <p id="unpaid-client">0.00</p>
-            </div>
-          </article>
-          <article class="overview-card">
-            <div class="overview-title" style="color: brown">
-              <i class="fa-solid fa-chart-simple"></i>
-              <h3>Estimates Revenue</h3>
-            </div>
-            <div class="overview-details">
-              <i class="fa-solid fa-dollar-sign"></i>
-              <p id="estimate-total">0.00</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="client">
-        <article id="client-data">
-          <h2>Client Data</h2>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="client-table-body">
-                <!-- Client rows will be added here -->
-              </tbody>
-            </table>
+          <div class="overview-details">
+            <i class="fa-solid fa-dollar-sign"></i>
+            <p id="monthly-revenue">0.00</p>
           </div>
         </article>
-      </section>
-
-      <section class="quick-menu">
-        <button id="add-client">Add Client</button>
-        <button id="add-invoice">Create Invoice</button>
-        <button>Create Estimate</button>
-      </section>
-
-      <div id="client-popup">
-        <form>
-          <button id="close-button" aria-label="Close alert" type="button">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <label for="name">Name:</label><br />
-          <input type="text" id="name" name="fname" /><br />
-          <label for="description">Address:</label><br />
-          <input type="text" id="description" name="address" /><br />
-
-          <label for="amount">Amount:</label><br />
-          <input type="number" id="amount" name="amount" /><br />
-
-          <label for="status"></label>
-          <select name="text" id="status">
-            <option>Paid</option>
-            <option>Unpaid</option>
-          </select>
-
-          <br /><br />
-          <input type="submit" value="Submit" />
-          <button id="delete-button" aria-label="Close alert" type="button">
-            <span aria-hidden="true">Delete</span>
-          </button>
-        </form>
+        <article class="overview-card">
+          <div class="overview-title" style="color: blue">
+            <i class="fa-solid fa-users"></i>
+            <h3>Total Clients</h3>
+          </div>
+          <div class="overview-details">
+            <p id="total-client">0</p>
+          </div>
+        </article>
+        <article class="overview-card">
+          <div class="overview-title" style="color: red">
+            <i class="fa-solid fa-list"></i>
+            <h3>Unpaid Clients</h3>
+          </div>
+          <div class="overview-details">
+            <p id="unpaid-client">0.00</p>
+          </div>
+        </article>
+        <article class="overview-card">
+          <div class="overview-title" style="color: brown">
+            <i class="fa-solid fa-chart-simple"></i>
+            <h3>Estimates Revenue</h3>
+          </div>
+          <div class="overview-details">
+            <i class="fa-solid fa-dollar-sign"></i>
+            <p id="estimate-total">0.00</p>
+          </div>
+        </article>
       </div>
+    </section>
 
-      <div id="invoice-popup">
-        <form>
-          <button id="invoice-close-button" aria-label="Close alert" type="button">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      
-          <div class="row">
-            <select id="clientSelect"></select>
-            <label for="rateService">Rate:</label>
-            <input type="number" id="rateService" name="Rate" />
-          </div>  
-          
-          <div class="row">
-              <label for="trim">Trim:</label>
-              <input type="number" id="trim" name="Trim" />
-              <label for="rateTrim">Rate:</label>
-              <input type="number" id="rateTrim" name="Rate" />
-          </div>
-      
-          <div class="row">
-              <label for="cleanUp">Clean-up:</label>
-              <input type="number" id="cleanUp" name="Clean-Up" />
-              <label for="rateCleanUp">Rate:</label>
-              <input type="number" id="rateCleanUp" name="Rate" />
-          </div>
-      
-          <div class="row">
-              <label for="irrigation">Irrigation:</label>
-              <input type="number" id="irrigation" name="Irrigation" />
-              <label for="rateIrrigation">Rate:</label>
-              <input type="number" id="rateIrrigation" name="Rate" />
-          </div>
-      
-          <div class="row">
-              <label for="plant">Plants:</label>
-              <input type="number" id="plant" name="Plant" />
-              <label for="ratePlants">Rate:</label>
-              <input type="number" id="ratePlants" name="Rate" />
-          </div>
-      
-          <div class="row">
-              <label for="other">Other:</label>
-              <input type="number" id="other" name="other" />
-              <label for="rateOther">Rate:</label>
-              <input type="number" id="rateOther" name="Rate" />
-          </div>
-      
-          <input type="submit" value="Submit" />
+    <section class="client">
+      <article id="client-data">
+        <h2>Client Data</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="client-table-body">
+              <!-- Client rows will be added here -->
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="quick-menu">
+      <button id="add-client">Add Client</button>
+      <button id="add-invoice">Create Invoice</button>
+      <button>Create Estimate</button>
+    </section>
+
+    <div id="client-popup">
+      <form>
+        <button id="close-button" aria-label="Close alert" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <label for="name">Name:</label><br />
+        <input type="text" id="name" name="fname" /><br />
+        <label for="address">Address:</label><br />
+        <input type="text" id="address" name="address" /><br />
+        <label for="city">City/Zipcode</label><br />
+        <input type="text" id="city" name="city/zipcode" /><br />
+
+        <label for="amount">Amount:</label><br />
+        <input type="number" id="amount" name="amount" /><br />
+
+        <label for="status"></label>
+        <select name="text" id="status">
+          <option>Paid</option>
+          <option>Unpaid</option>
+        </select>
+
+        <br /><br />
+        <input type="submit" value="Submit" />
+        <button id="delete-button" aria-label="Close alert" type="button">
+          <span aria-hidden="true">Delete</span>
+        </button>
       </form>
-      </div>
-    </main>
-  </body>
+    </div>
+
+    <div id="invoice-popup">
+      <form>
+        <button id="invoice-close-button" aria-label="Close alert" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="column">
+          <select id="clientSelect"></select>
+          <label for="rateService">Quanty:</label>
+          <input type="number" id="rateService" name="Rate" />
+        </div>
+
+        <div id="container-details">
+          <div class="column">
+            <label for="trim">Trim:</label>
+            <input type="number" id="trim" name="Trim" />
+            <label for="cleanUp">Clean-up:</label>
+            <input type="number" id="cleanUp" name="Clean-Up" />
+            <label for="irrigation">Irrigation:</label>
+            <input type="number" id="irrigation" name="Irrigation" />
+            <label for="plant">Plants:</label>
+            <input type="number" id="plant" name="Plant" />
+            <label for="other">Other:</label>
+            <input type="number" id="other" name="other" />
+          </div>
+          <div class="column">
+            <label for="rateTrim">Quanty:</label>
+            <input type="number" id="rateTrim" name="Rate" />
+            <label for="rateCleanUp">Quanty:</label>
+            <input type="number" id="rateCleanUp" name="Rate" />
+            <label for="rateIrrigation">Quanty:</label>
+            <input type="number" id="rateIrrigation" name="Rate" />
+            <label for="ratePlants">Quanty:</label>
+            <input type="number" id="ratePlants" name="Rate" />
+            <label for="rateOther">Quanty:</label>
+            <input type="number" id="rateOther" name="Rate" />
+          </div>
+        </div>
+
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  </main>
+</body>
+
 </html>

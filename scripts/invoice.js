@@ -44,18 +44,20 @@ function drawName(page, font, client) {
 }
 
 function drawAddress(page, font, client) {
-  let address = client.description.toUpperCase();
+  let address = client.address.toUpperCase();
+  let city = client.city.toUpperCase();
   drawText(page, font, address, 179.28, 536.32, 12, 2);
+  drawText(page, font, city, 179.28, 515.32, 12, 2); 
 }
 
 function drawServiceDetails(page, priceFont, customFont, client, additionalServices) {
   const serviceDetailsConfig = [
-      { service: 'service', yPos: 402.5 },
-      { service: 'trim', yPos: 368.66 },
-      { service: 'cleanUp', yPos: 335.96 },
-      { service: 'irrigation', yPos: 302.26 },
-      { service: 'plants', yPos: 268.56 },
-      { service: 'other', yPos: 234.86 }
+      { service: 'service', yPos: 418.5 },
+      { service: 'trim', yPos: 384.66 },
+      { service: 'cleanUp', yPos: 351.96 },
+      { service: 'irrigation', yPos: 318.26 },
+      { service: 'plants', yPos: 285.56 },
+      { service: 'other', yPos: 252.86 }
   ];
 
   let totalPrice = 0;
@@ -64,13 +66,15 @@ function drawServiceDetails(page, priceFont, customFont, client, additionalServi
       let detail = additionalServices.find(s => s.service === config.service);
       
       if (detail && detail.value) {
-          drawText(page, priceFont, `$ ${detail.value}.00`, 480, config.yPos, 12, 0);
-          drawText(page, priceFont, `${detail.rate}`, 430, config.yPos, 12, 0); 
-          totalPrice += parseFloat(detail.value);
+          drawText(page, priceFont, `${detail.rate}`, 290, config.yPos, 12, 0); 
+          drawText(page, priceFont, `$ ${detail.value}.00`, 380, config.yPos, 12, 0);
+          drawText(page, priceFont, `$ ${detail.rate * detail.value}.00`, 485, config.yPos, 12, 0); 
+
+          totalPrice += parseFloat(detail.value * detail.rate);
       }
   }
 
-  drawText(page, customFont, `$ ${totalPrice.toFixed(2)}`, 480, 200.86, 14, 0);
+  drawText(page, customFont, `$ ${totalPrice.toFixed(2)}`, 475, 217.86, 14, 0);
 }
 
 function getLastDayOfMonth() {

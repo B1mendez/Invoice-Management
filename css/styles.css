@@ -299,6 +299,17 @@ tfoot td {
   background-color: #0056b3;
 }
 
+select {
+	border: 1px solid #CCC;
+	border-radius: 0;
+	cursor: pointer;
+	display: inline-block;
+	margin-top: 10px;
+	width: 100%;
+  color: #000;
+  background-color: #fff;
+}
+
 #client-popup {
   display: none;
   max-height: 90vh;
@@ -316,6 +327,20 @@ tfoot td {
   right: 15px;
   border: 3px solid #f1f1f1;
   z-index: 10;
+}
+
+#client-popup input[type="submit"] {
+  background-color: var(--meduim-color);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
 }
 
 #invoice-popup {
@@ -352,12 +377,28 @@ tfoot td {
 
 #invoice-popup .row {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start; 
+  margin-bottom: 15px;
+}
+
+#container-details {
+  display: flex;
+  flex: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#invoice-popup .column {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start; 
   margin-bottom: 15px;
 }
 
 #invoice-popup input[type="submit"] {
-  background-color: var(--meduim-color); /* Green background */
+  background-color: var(--meduim-color);
   border: none;
   color: white;
   padding: 10px 20px;
@@ -407,15 +448,20 @@ tfoot td {
 }
 
 #delete-button {
-  display: none;
-  margin: 10px;
-  padding: 10px 15px;
-  border: none;
+  display: none; 
   background-color: var(--meduim-color);
+  border: none;
   color: white;
-  border-radius: 4px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
 }
 
 #delete-button button:hover {
-  background-color: #0056b3;
+  background-color: var(--dark-color); 
 }
