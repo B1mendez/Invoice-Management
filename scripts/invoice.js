@@ -5,7 +5,7 @@ function getClient(clientName) {
 
 async function generateInvoice(client, additionalServices = [], additionServicesRate = []) {
   const { PDFDocument, StandardFonts } = PDFLib;
-  const existingPdfBytes = await fetch("/assets/Invoice.pdf").then((res) => res.arrayBuffer());
+  const existingPdfBytes = await fetch("./assets/Invoice.pdf").then((res) => res.arrayBuffer());
   let pdfDoc = await PDFDocument.load(existingPdfBytes);
 
   const customFont = await pdfDoc.embedFont(StandardFonts.CourierBold);
@@ -100,7 +100,6 @@ function getLastDayOfMonth() {
 function populateClientsDropdown() {
   let clientSelect = document.getElementById("clientSelect");
   let allClients = JSON.parse(localStorage.getItem("clients")) || [];
-
   allClients.forEach((client) => {
     let option = document.createElement("option");
     option.value = client.name;
