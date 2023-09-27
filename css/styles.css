@@ -45,6 +45,8 @@ main {
 
 .header {
   margin: 25px 0px;
+  display: block;
+  text-align: center;
 }
 .global-sidebar h2 {
   margin-top: 0;
@@ -53,11 +55,7 @@ main {
 }
 
 .global-sidebar img {
-  max-width: 100%;
-  display: block;
-  margin-top:-50px;
-  margin-bottom:-30px;
-
+  max-width: 55%;
 }
 
 .menu-sidebar {

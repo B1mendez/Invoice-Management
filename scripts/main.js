@@ -6,7 +6,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1350,
     height: 775,
-    icon: `${__dirname}inviosync_IOc_icon.ico`, 
+    icon: "./images/icons/win/invoisync_FpD_icon.ico", 
     webPreferences: {
       nodeIntegration: true
     }
