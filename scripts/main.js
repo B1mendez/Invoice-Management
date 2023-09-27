@@ -4,8 +4,9 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1350,
+    height: 775,
+    icon: `${__dirname}inviosync_IOc_icon.ico`, 
     webPreferences: {
       nodeIntegration: true
     }
