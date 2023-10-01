@@ -4,8 +4,8 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1350,
-    height: 775,
+    width: 1650,
+    height: 875,
     icon: "./images/icons/win/invoisync_FpD_icon.ico", 
     webPreferences: {
       nodeIntegration: true
