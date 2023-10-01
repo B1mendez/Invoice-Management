@@ -18,11 +18,12 @@
 
 body {
   display: flex;
+  background-color: #ebe9e9;
+
 }
 
 main {
   position: relative;
-  background-color: #ebe9e9;
   width: 100%;
   padding: 1rem;
   height: 100vh;
@@ -41,6 +42,8 @@ main {
   transition: all 0.5s linear;
   padding: 0 1.7rem;
   background-color: var(--dark-color);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .header {
@@ -48,6 +51,7 @@ main {
   display: block;
   text-align: center;
 }
+
 .global-sidebar h2 {
   margin-top: 0;
   margin-bottom: 20px;
@@ -98,6 +102,11 @@ main {
   background-color: var(--light-color);
 }
 
+.page {
+  width: 100%;
+  height: 100%;
+}
+
 /* Home Screen */
 .home {
   display: flex;
@@ -107,6 +116,7 @@ main {
   background: #fff;
   border-radius: 10px;
   padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .home h2 {
@@ -144,6 +154,7 @@ main {
   background: transparent;
   padding: 10px;
 }
+
 #search-container img {
   width: 100%;
   height: 50px;
@@ -153,67 +164,193 @@ main {
 }
 
 .overview {
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px;
   margin: 1rem 0;
-}
-
-.overview h2 {
-  margin-bottom: 20px;
-  font-size: 25px;
-  color: var(--dark-color);
+  display: flex;
+  justify-content: space-between;
+  height: 35%;
 }
 
 .overview-container {
-  display: flex; /* Line up the cards in a row */
-  justify-content: space-between; /* Distribute the cards equally */
+  flex-basis: 65%;
+  display: grid;
+  /* Line up the cards in a row */
+  justify-content: space-between;
+  /* Distribute the cards equally */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .overview-card {
-  flex: 1; /* Make sure all cards take equal width */
-  border-right: 1px solid black; /* Thin black line on the right of each card */
-  padding: 10px; /* Some internal spacing */
+  display: flex;
+  align-items: center;
+  background: #fff;
+  /* or any light color of your preference */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.overview-card:last-child {
-  border-right: none; /* Remove the border from the last card */
-}
-
-.overview-title {
-  display: flex; /* Align icon and title in a row */
+.icon-container {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 25px; /* Space between title and revenue */
-  gap: 10px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
 }
 
-.overview-title h3 {
+.icon-container i {
+  font-size: 24px;
+  color: white;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  /* Align items to the start */
+}
+
+.info-container h3 {
   font-size: 18px;
+  margin-bottom: 10px;
 }
 
-.overview-title i {
-  margin-right: 10px; /* Space between icon and text */
+.overview-details {
+  display: flex;
+  align-items: center;
 }
 
 .overview-details i {
   font-size: 25px;
-  /* font-weight: 150; */
   margin-right: 10px;
 }
 
 .overview-details p {
   font-size: 30px;
+  margin: 0;
 }
-.overview-details {
+
+.quick-menu {
+  flex-basis: 35%;
+  margin-left: 20px;
   display: flex;
-  justify-content: center; /* Center the revenue content */
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+.quick-menu h2 {
+  font-size: 25px;
+  color: var(--dark-color);
+}
+
+.skill {
+  width: 140px;
+  height: 140px;
+  position: relative;
+}
+
+.outer {
+  height: 140px;
+  width: 140px;
+  padding: 20px;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+  -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+}
+
+.inner {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2), inset
+  -4px -4px 6px -1px rgba(255, 255, 255, 0.7), -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+  0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+}
+
+#number {
+  font-weight: 600;
+  color: #000;
+  font-size: 30px;
+}
+
+.quick-menu circle {
+  fill: none;
+  stroke: url(#GradientColor); 
+  stroke-width: 20px;
+  stroke-dasharray: 450;
+  stroke-dashoffset: 450;
+  animation: anim 2s linear forwards; 
+}
+
+.quick-menu svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+@keyframes anim {
+  100% {
+    stroke-dashoffset: 450;
+  }
+}
+
+#action-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.quick-menu button {
+  margin: 10px;
+  padding: 10px 15px;
+  border: none;
+  background-color: var(--meduim-color);
+  color: white;
+  border-radius: 4px;
+}
+
+.quick-menu button:hover {
+  background-color: #0056b3;
 }
 
 .client {
   background-color: #fff;
+  height: auto;
   margin: 1rem 0;
   padding: 10px;
   border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 53.5%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  /* Stack child elements vertically */
+}
+
+.table-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.table-header button {
+  margin: 10px;
+  padding: 10px 15px;
+  border: none;
+  background-color: var(--meduim-color);
+  color: white;
+  border-radius: 4px;
 }
 
 .client h2 {
@@ -224,9 +361,9 @@ main {
 
 .table-container {
   width: 100%;
-  max-height: 250px;  
-  overflow-y: auto;   
+  overflow-y: auto;
   overflow-x: hidden;
+  flex-grow: 1;
 }
 
 table {
@@ -235,8 +372,9 @@ table {
 }
 
 thead {
-  background: var(--light-color);
+  background: var(--meduim-color);
   color: #fff;
+  border-radius: 10px;
 }
 
 th {
@@ -245,17 +383,13 @@ th {
 }
 
 tbody {
-  background: #f2f2f2;
+  background: #fff;
 }
 
 td {
   padding: 15px;
   font-size: 14px;
-  color: #333;
-}
-
-tr:nth-child(even) {
-  background: #fff;
+  color: #000;
 }
 
 tfoot {
@@ -274,36 +408,13 @@ tfoot td {
   cursor: pointer;
 }
 
-.quick-menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  background: #fff;
-  border-radius: 10px;
-  margin: 1rem 0;
-}
-
-.quick-menu button {
-  margin: 10px;
-  padding: 10px 15px;
-  border: none;
-  background-color: var(--meduim-color);
-  color: white;
-  border-radius: 4px;
-}
-
-.quick-menu button:hover {
-  background-color: #0056b3;
-}
-
 select {
-	border: 1px solid #CCC;
-	border-radius: 0;
-	cursor: pointer;
-	display: inline-block;
-	margin-top: 10px;
-	width: 100%;
+  border: 1px solid #CCC;
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
   color: #000;
   background-color: #fff;
 }
@@ -316,7 +427,7 @@ select {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  backdrop-filter: blur(3px) saturate(100%) contrast(45%) brightness(130%);
+  background-color: #f1f1f1;
   border-radius: 15px;
   box-shadow: 0 0 1rem 0 rgba(0 0 0 / 20%);
   padding: 3% 3% 2%;
@@ -376,7 +487,7 @@ select {
 #invoice-popup .row {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   margin-bottom: 15px;
 }
 
@@ -391,7 +502,7 @@ select {
 #invoice-popup .column {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   margin-bottom: 15px;
 }
 
@@ -410,7 +521,7 @@ select {
 }
 
 #invoice-popup input[type="submit"]:hover {
-  background-color: var(--dark-color); 
+  background-color: var(--dark-color);
 }
 
 #close-button {
@@ -446,7 +557,7 @@ select {
 }
 
 #delete-button {
-  display: none; 
+  display: none;
   background-color: var(--meduim-color);
   border: none;
   color: white;
@@ -461,5 +572,5 @@ select {
 }
 
 #delete-button button:hover {
-  background-color: var(--dark-color); 
+  background-color: var(--dark-color);
 }

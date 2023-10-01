@@ -62,7 +62,8 @@ function updateClient() {
     document.querySelector('#client-popup form').reset();
     currentEditingRow = null;
     originalName = null;
-    updateOverviewCards();   
+    updateOverviewCards(); 
+    updateBreakDownBar();  
 }
 
 function addClient() {
@@ -99,6 +100,7 @@ function addClient() {
     localStorage.setItem("clients", JSON.stringify(clients));
     document.querySelector('#client-popup form').reset();
     updateOverviewCards();
+    updateBreakDownBar();
 }
 
 function displayClients() {
@@ -161,6 +163,7 @@ function deleteClient(clientData, row) {
         clients = clients.filter(c => c.name !== clientData.name);
         
         updateOverviewCards();
+        updateBreakDownBar();
         localStorage.setItem("clients", JSON.stringify(clients));
 
         hideForm(); 
@@ -176,6 +179,12 @@ function calculateMonthlyRevenue(){
     return totalPaidAmount;
 }
 
+function calculateTotalRevenue(){
+    let totalAmount = clients
+        .reduce((total, client) => total + parseFloat(client.amount), 0);
+    return totalAmount; 
+}
+
 function updateOverviewCards() {
     let totalClients = clients.length;
     let unpaidClients = clients.filter(client => client.status === 'Unpaid').length;
@@ -187,11 +196,35 @@ function updateOverviewCards() {
     document.getElementById('unpaid-client').textContent = unpaidClients;
 }
 
+function updateBreakDownBar() {
+    let totalRevenue = calculateTotalRevenue();
+    let monthlyRevenue = calculateMonthlyRevenue();
+    let percentage = (monthlyRevenue / totalRevenue) * 100;
+
+    let number = document.getElementById('number');
+    number.innerHTML = `${percentage.toFixed(0)}%`; 
+
+    let newOffset = 450 - (450 * percentage / 100);
+    updateKeyframes(newOffset);
+}
+
+function updateKeyframes(newOffset) {
+    let styleSheet = document.styleSheets[0];  
+    let keyframes =
+        `@keyframes anim {
+            100% {
+                stroke-dashoffset: ${newOffset};
+            }
+        }`;
+
+    styleSheet.insertRule(keyframes, styleSheet.cssRules.length); 
+}
 
 window.addEventListener("DOMContentLoaded", function() {
     init();
     displayClients();
     updateOverviewCards();
+    updateBreakDownBar();
 });
 
 let clients = JSON.parse(localStorage.getItem("clients")) || [];

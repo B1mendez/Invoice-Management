@@ -13,8 +13,7 @@
   <script src="https://unpkg.com/pdf-lib"></script>
   <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
   <script src="https://unpkg.com/downloadjs@1.4.7"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -56,160 +55,226 @@
 
   <!-- Main Content -->
   <main>
-    <section class="home">
-      <h2>Welcome to Your Dashboard</h2>
-      <!-- Search Icon -->
-      <div id="search-container">
-        <div id="search-box">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" placeholder="Search" />
+    <div id="dashboard" class="page">
+      <section class="home">
+        <h2>Welcome to Your Dashboard</h2>
+        <!-- Search Icon -->
+        <div id="search-container">
+          <div id="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+          <img src="./images/company-logo.jpg" alt="daniel mendez landscaping logo" />
         </div>
-        <img src="./images/company-logo.jpg" alt="daniel mendez landscaping logo" />
-      </div>
-    </section>
+      </section>
 
-    <section class="overview">
-      <h2>Overview</h2>
-      <div class="overview-container">
-        <article class="overview-card">
-          <div class="overview-title" style="color: green">
-            <i class="fa-solid fa-arrow-up-right-dots"></i>
-            <h3>Monthly Revenue</h3>
-          </div>
-          <div class="overview-details">
-            <i class="fa-solid fa-dollar-sign"></i>
-            <p id="monthly-revenue">0.00</p>
-          </div>
-        </article>
-        <article class="overview-card">
-          <div class="overview-title" style="color: blue">
-            <i class="fa-solid fa-users"></i>
-            <h3>Total Clients</h3>
-          </div>
-          <div class="overview-details">
-            <p id="total-client">0</p>
-          </div>
-        </article>
-        <article class="overview-card">
-          <div class="overview-title" style="color: red">
-            <i class="fa-solid fa-list"></i>
-            <h3>Unpaid Clients</h3>
-          </div>
-          <div class="overview-details">
-            <p id="unpaid-client">0.00</p>
-          </div>
-        </article>
-        <article class="overview-card">
-          <div class="overview-title" style="color: brown">
-            <i class="fa-solid fa-chart-simple"></i>
-            <h3>Estimates Revenue</h3>
-          </div>
-          <div class="overview-details">
-            <i class="fa-solid fa-dollar-sign"></i>
-            <p id="estimate-total">0.00</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="client">
-      <article id="client-data">
-        <h2>Client Data</h2>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="client-table-body">
-              <!-- Client rows will be added here -->
-            </tbody>
-          </table>
+      <section class="overview">
+        <div class="overview-container">
+          <article class="overview-card">
+            <div class="icon-container" style="background: lightgreen;">
+              <i class="fa-solid fa-arrow-up-right-dots" style="color: green;"></i>
+            </div>
+            <div class="info-container">
+              <h3>Monthly Revenue</h3>
+              <div class="overview-details">
+                <i class="fa-solid fa-dollar-sign"></i>
+                <p id="monthly-revenue">0.00</p>
+              </div>
+            </div>
+          </article>
+          <article class="overview-card">
+            <div class="icon-container" style="background: lightgoldenrodyellow;">
+              <i class="fa-solid fa-chart-simple" style="color: orange;"></i>
+            </div>
+            <div class="info-container">
+              <h3>Estimates Revenue</h3>
+              <div class="overview-details">
+                <i class="fa-solid fa-dollar-sign"></i>
+                <p id="estimate-total">0.00</p>
+              </div>
+            </div>
+          </article>
+          <article class="overview-card">
+            <div class="icon-container" style="background: lightblue;">
+              <i class="fa-solid fa-users" style="color: blue;"></i>
+            </div>
+            <div class="info-container">
+              <h3>Total Clients</h3>
+              <div class="overview-details">
+                <p id="total-client">0</p>
+              </div>
+            </div>
+          </article>
+          <article class="overview-card">
+            <div class="icon-container" style="background: lightpink;">
+              <i class="fa-solid fa-list" style="color: red;"></i>
+            </div>
+            <div class="info-container">
+              <h3>Unpaid Clients</h3>
+              <div class="overview-details">
+                <p id="unpaid-client">0.00</p>
+              </div>
+            </div>
+          </article>
         </div>
-      </article>
-    </section>
+        <div class="quick-menu">
+          <h2>Quick Menu</h2>
+          <div class="skill">
+            <div class="outer">
+              <div class="inner">
+                <div id="number"></div>
+              </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+              <defs>
+                <linearGradient id="GradientColor">
+                  <stop offset="0%" stop-color="#84a98c" />
+                  <stop offset="100%" stop-color="#52796f" />
+                </linearGradient>
+              </defs>
+              <circle cx="70" cy="70" r="60" stroke-linecap="round" />
+            </svg>
+          </div>
+          <h3>Progress towards Total Possible Revenue</h3>
+          <div id="action-container">
+            <button id="add-invoice">Create Invoice</button>
+            <button>Create Estimate</button>
+          </div>
+        </div>
+      </section>
 
-    <section class="quick-menu">
-      <button id="add-client">Add Client</button>
-      <button id="add-invoice">Create Invoice</button>
-      <button>Create Estimate</button>
-    </section>
+      <section class="client">
+        <article id="client-data">
+          <div class="table-header">
+            <h2>Client Data</h2>
+            <button id="add-client">Add Client</button>
+          </div>
 
-    <div id="client-popup">
-      <form>
-        <button id="close-button" aria-label="Close alert" type="button">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <label for="name">Name:</label><br />
-        <input type="text" id="name" name="fname" /><br />
-        <label for="address">Address:</label><br />
-        <input type="text" id="address" name="address" /><br />
-        <label for="city">City/Zipcode</label><br />
-        <input type="text" id="city" name="city/zipcode" /><br />
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="client-table-body">
+                <!-- Client rows will be added here -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
 
-        <label for="amount">Amount:</label><br />
-        <input type="number" id="amount" name="amount" /><br />
+      <div id="client-popup">
+        <form>
+          <button id="close-button" aria-label="Close alert" type="button">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <label for="name">Name:</label><br />
+          <input type="text" id="name" name="fname" /><br />
+          <label for="address">Address:</label><br />
+          <input type="text" id="address" name="address" /><br />
+          <label for="city">City/Zipcode</label><br />
+          <input type="text" id="city" name="city/zipcode" /><br />
 
-        <label for="status"></label>
-        <select name="text" id="status">
-          <option>Paid</option>
-          <option>Unpaid</option>
-        </select>
+          <label for="amount">Amount:</label><br />
+          <input type="number" id="amount" name="amount" /><br />
 
-        <br /><br />
-        <input type="submit" value="Submit" />
-        <button id="delete-button" aria-label="Close alert" type="button">
-          <span aria-hidden="true">Delete</span>
-        </button>
-      </form>
+          <label for="status"></label>
+          <select name="text" id="status">
+            <option>Paid</option>
+            <option>Unpaid</option>
+          </select>
+
+          <br /><br />
+          <input type="submit" value="Submit" />
+          <button id="delete-button" aria-label="Close alert" type="button">
+            <span aria-hidden="true">Delete</span>
+          </button>
+        </form>
+      </div>
+
+      <div id="invoice-popup">
+        <form>
+          <button id="invoice-close-button" aria-label="Close alert" type="button">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="column">
+            <select id="clientSelect"></select>
+            <label for="rateService">Quantity:</label>
+            <input type="number" id="rateService" name="Rate" />
+          </div>
+
+          <div id="container-details">
+            <div class="column">
+              <label for="trim">Trim:</label>
+              <input type="number" id="trim" name="Trim" />
+              <label for="cleanUp">Clean-up:</label>
+              <input type="number" id="cleanUp" name="Clean-Up" />
+              <label for="irrigation">Irrigation:</label>
+              <input type="number" id="irrigation" name="Irrigation" />
+              <label for="plant">Plants:</label>
+              <input type="number" id="plant" name="Plant" />
+              <label for="other">Other:</label>
+              <input type="number" id="other" name="other" />
+            </div>
+            <div class="column">
+              <label for="rateTrim">Quantity:</label>
+              <input type="number" id="rateTrim" name="Rate" />
+              <label for="rateCleanUp">Quantity:</label>
+              <input type="number" id="rateCleanUp" name="Rate" />
+              <label for="rateIrrigation">Quantity:</label>
+              <input type="number" id="rateIrrigation" name="Rate" />
+              <label for="ratePlants">Quantity:</label>
+              <input type="number" id="ratePlants" name="Rate" />
+              <label for="rateOther">Quantity:</label>
+              <input type="number" id="rateOther" name="Rate" />
+            </div>
+          </div>
+
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
+    <div id="client" class="page" style="display: none;">
+      <h1>TEST</h1>
     </div>
 
-    <div id="invoice-popup">
-      <form>
-        <button id="invoice-close-button" aria-label="Close alert" type="button">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="column">
-          <select id="clientSelect"></select>
-          <label for="rateService">Quantity:</label>
-          <input type="number" id="rateService" name="Rate" />
-        </div>
-
-        <div id="container-details">
-          <div class="column">
-            <label for="trim">Trim:</label>
-            <input type="number" id="trim" name="Trim" />
-            <label for="cleanUp">Clean-up:</label>
-            <input type="number" id="cleanUp" name="Clean-Up" />
-            <label for="irrigation">Irrigation:</label>
-            <input type="number" id="irrigation" name="Irrigation" />
-            <label for="plant">Plants:</label>
-            <input type="number" id="plant" name="Plant" />
-            <label for="other">Other:</label>
-            <input type="number" id="other" name="other" />
-          </div>
-          <div class="column">
-            <label for="rateTrim">Quantity:</label>
-            <input type="number" id="rateTrim" name="Rate" />
-            <label for="rateCleanUp">Quantity:</label>
-            <input type="number" id="rateCleanUp" name="Rate" />
-            <label for="rateIrrigation">Quantity:</label>
-            <input type="number" id="rateIrrigation" name="Rate" />
-            <label for="ratePlants">Quantity:</label>
-            <input type="number" id="ratePlants" name="Rate" />
-            <label for="rateOther">Quantity:</label>
-            <input type="number" id="rateOther" name="Rate" />
-          </div>
-        </div>
-
-        <input type="submit" value="Submit" />
-      </form>
+    <div id="invoice" class="page" style="display: none;">
+      <h1>INVOICE</h1>
     </div>
+
+    <div id="estimate" class="page" style="display: none;">
+      <!-- Estimate HTML goes here -->
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const menuItems = document.querySelectorAll('.menu-sidebar a');
+
+        menuItems.forEach((item, index) => {
+          item.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            document.querySelectorAll('.menu-sidebar li').forEach(li => {
+              li.classList.remove('active');
+            });
+
+            item.closest('li').classList.add('active');
+            document.querySelectorAll('.page').forEach(page => {
+              page.style.display = 'none';
+            });
+
+            const sections = ['dashboard', 'client', 'invoice', 'estimate'];
+            document.getElementById(sections[index]).style.display = 'block';
+          });
+        });
+      });
+    </script>
   </main>
 </body>
 
