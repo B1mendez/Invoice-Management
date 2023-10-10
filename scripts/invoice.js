@@ -116,10 +116,12 @@ function generateSelectedClientInvoice() {
 }
 
 function showInvoiceForm() {
+  populateClientsDropdown();
   document.getElementById("invoice-popup").style.display = "block";
 }
 
 function closeInvoiceForm() {
+  document.getElementById("clientSelect").innerHTML = "";
   document.getElementById("invoice-popup").style.display = "none";
 }
 
@@ -172,7 +174,4 @@ window.addEventListener("DOMContentLoaded", function () {
   // Attach event listener to form submission
   let invoiceForm = document.querySelector("#invoice-popup form");
   invoiceForm.addEventListener("submit", handleSubmit);
-
-  // Populate clients dropdown
-  populateClientsDropdown();
 });

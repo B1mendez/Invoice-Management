@@ -200,11 +200,13 @@ function updateBreakDownBar() {
     let totalRevenue = calculateTotalRevenue();
     let monthlyRevenue = calculateMonthlyRevenue();
     let percentage = (monthlyRevenue / totalRevenue) * 100;
-
+    
     let number = document.getElementById('number');
     number.innerHTML = `${percentage.toFixed(0)}%`; 
 
-    let newOffset = 450 - (450 * percentage / 100);
+    let newOffset = 370 - (370 * percentage / 100);
+    console.log(newOffset); 
+    console.log(percentage);
     updateKeyframes(newOffset);
 }
 

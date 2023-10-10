@@ -167,7 +167,7 @@ main {
   margin: 1rem 0;
   display: flex;
   justify-content: space-between;
-  height: 35%;
+  height: 33%;
 }
 
 .overview-container {
@@ -250,6 +250,10 @@ main {
   color: var(--dark-color);
 }
 
+.quick-menu h3 {
+  font-size: 1rem;
+}
+
 .skill {
   width: 140px;
   height: 140px;
@@ -287,8 +291,8 @@ main {
   fill: none;
   stroke: url(#GradientColor); 
   stroke-width: 20px;
-  stroke-dasharray: 450;
-  stroke-dashoffset: 450;
+  stroke-dasharray: 370;
+  stroke-dashoffset: 370;
   animation: anim 2s linear forwards; 
 }
 
@@ -301,7 +305,7 @@ main {
 
 @keyframes anim {
   100% {
-    stroke-dashoffset: 450;
+    stroke-dashoffset: 370;
   }
 }
 
@@ -311,7 +315,7 @@ main {
   flex-direction: row;
 }
 
-.quick-menu button {
+#action-container button {
   margin: 10px;
   padding: 10px 15px;
   border: none;
@@ -320,7 +324,7 @@ main {
   border-radius: 4px;
 }
 
-.quick-menu button:hover {
+#action-container button:hover {
   background-color: #0056b3;
 }
 
