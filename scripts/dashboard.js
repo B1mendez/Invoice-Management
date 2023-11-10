@@ -1,7 +1,7 @@
 function init() {
     let add = document.getElementById("add-client");
     add.addEventListener("click", function () {
-        showForm();
+        showForm(false);
     });
 
     let close = document.getElementById("close-button");
@@ -11,23 +11,29 @@ function init() {
     document.querySelector('#client-popup form').addEventListener('submit', handleFormSubmission);
 }
 
-function showForm() {
+function showForm(editMode = false) {
+    let deleteBtn = document.getElementById("delete-button");
+    deleteBtn.style.display = editMode ? "block" : "none";
+
+    // Display the form
     document.getElementById("client-popup").style.display = "block";
 }
 
 function hideForm() {
     document.getElementById("client-popup").style.display = "none";
+    document.querySelector('#client-popup form').reset();
+
 }
 
 function handleFormSubmission(e) {
     e.preventDefault();
-    
+
     if (currentEditingRow) {
         updateClient();
     } else {
         addClient();
     }
-    
+
     document.getElementById("client-popup").style.display = "none";
 }
 
@@ -37,23 +43,31 @@ function updateClient() {
     let city = document.getElementById('city').value;
     let amount = document.getElementById('amount').value;
     let status = document.getElementById('status').value;
-    
+
     // Update the displayed table
     currentEditingRow.cells[0].textContent = name;
     currentEditingRow.cells[1].textContent = address;
-    currentEditingRow.cells[2].textContent = amount;
+    currentEditingRow.cells[2].textContent = `$ ${amount}.00`;
     currentEditingRow.cells[3].textContent = status;
+    currentEditingRow.cells[3].classList.remove('paid-status', 'unpaid-status');
+
+
+    if (status.toLowerCase() === 'paid') {
+        currentEditingRow.cells[3].classList.add('paid-status');
+    } else if (status.toLowerCase() === 'due') {
+        currentEditingRow.cells[3].classList.add('unpaid-status');
+    }
 
     // Update the clients array
     let updatedClient = {
         name: name,
-        address: address, 
+        address: address,
         city: city,
         amount: amount,
         status: status
     };
 
-    let index = clients.findIndex(client => client.name === originalName); 
+    let index = clients.findIndex(client => client.name === originalName);
     if (index !== -1) {
         clients[index] = updatedClient;
     }
@@ -62,8 +76,8 @@ function updateClient() {
     document.querySelector('#client-popup form').reset();
     currentEditingRow = null;
     originalName = null;
-    updateOverviewCards(); 
-    updateBreakDownBar();  
+    updateOverviewCards();
+    updateBreakDownBar();
 }
 
 function addClient() {
@@ -78,19 +92,26 @@ function addClient() {
 
     row.insertCell(0).textContent = name;
     row.insertCell(1).textContent = address;
-    row.insertCell(2).textContent = amount;
-    row.insertCell(3).textContent = status;    
-    // You can also add actions like delete or edit in the last cell if required.
+    row.insertCell(2).textContent = `$ ${amount}.00`;
+    let statusCell = row.insertCell(3);
+    statusCell.textContent = status;
+
+    if (status.toLowerCase() === 'paid') {
+        statusCell.classList.add('paid-status');
+    } else if (status.toLowerCase() === 'due') {
+        statusCell.classList.add('unpaid-status');
+    }    
+    
     let editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
-    editBtn.onclick = function() {
+    editBtn.onclick = function () {
         editClient(clientData, row);
     };
-    row.insertCell(4).appendChild(editBtn); 
+    row.insertCell(4).appendChild(editBtn);
 
     let clientData = {
         name: name,
-        address: address, 
+        address: address,
         city: city,
         amount: amount,
         status: status
@@ -123,34 +144,41 @@ function addClientRow(clientData) {
 
     row.insertCell(0).textContent = clientData.name;
     row.insertCell(1).textContent = clientData.address;
-    row.insertCell(2).textContent = clientData.amount;
-    row.insertCell(3).textContent = clientData.status;
-    
+    row.insertCell(2).textContent = `$ ${clientData.amount}.00`;
+
+    let statusCell = row.insertCell(3);
+    statusCell.textContent = clientData.status;
+
+    if (clientData.status.toLowerCase() === 'paid') {
+        statusCell.classList.add('paid-status');
+    } else if (clientData.status.toLowerCase() === 'due') {
+        statusCell.classList.add('unpaid-status');
+    }
+
     let editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
-    editBtn.onclick = function() {
+    editBtn.onclick = function () {
         editClient(clientData, row);
     };
-    row.insertCell(4).appendChild(editBtn); 
+    row.insertCell(4).appendChild(editBtn);
 }
 
 function editClient(clientData, row) {
-    // Populate the form with the current data
     document.getElementById('name').value = clientData.name;
     document.getElementById('address').value = clientData.address;
     document.getElementById('city').value = clientData.city;
     document.getElementById('amount').value = clientData.amount;
     document.getElementById('status').value = clientData.status;
-    
-    currentEditingRow = row; 
+
+    currentEditingRow = row;
     originalName = clientData.name;
 
     let deleteBtn = document.getElementById("delete-button");
     document.getElementById("delete-button").style.display = "block";
-    deleteBtn.onclick = function() {
+    deleteBtn.onclick = function () {
         deleteClient(clientData, row);
     };
-    showForm();
+    showForm(true);
     updateOverviewCards();
 }
 
@@ -161,17 +189,17 @@ function deleteClient(clientData, row) {
         tbody.removeChild(row);
 
         clients = clients.filter(c => c.name !== clientData.name);
-        
+
         updateOverviewCards();
         updateBreakDownBar();
         localStorage.setItem("clients", JSON.stringify(clients));
 
-        hideForm(); 
+        hideForm();
         document.querySelector('#client-popup form').reset();
     }
 }
 
-function calculateMonthlyRevenue(){
+function calculateMonthlyRevenue() {
     let totalPaidAmount = clients
         .filter(client => client.status === 'Paid')
         .reduce((total, client) => total + parseFloat(client.amount), 0);
@@ -179,10 +207,10 @@ function calculateMonthlyRevenue(){
     return totalPaidAmount;
 }
 
-function calculateTotalRevenue(){
+function calculateTotalRevenue() {
     let totalAmount = clients
         .reduce((total, client) => total + parseFloat(client.amount), 0);
-    return totalAmount; 
+    return totalAmount;
 }
 
 function updateOverviewCards() {
@@ -190,7 +218,7 @@ function updateOverviewCards() {
     let unpaidClients = clients.filter(client => client.status === 'Unpaid').length;
     let monthlyRevenue = calculateMonthlyRevenue();
     //let estimatesMade = /* calculation */;
-    
+
     document.getElementById('monthly-revenue').textContent = monthlyRevenue;
     document.getElementById('total-client').textContent = totalClients;
     document.getElementById('unpaid-client').textContent = unpaidClients;
@@ -200,18 +228,16 @@ function updateBreakDownBar() {
     let totalRevenue = calculateTotalRevenue();
     let monthlyRevenue = calculateMonthlyRevenue();
     let percentage = (monthlyRevenue / totalRevenue) * 100;
-    
-    let number = document.getElementById('number');
-    number.innerHTML = `${percentage.toFixed(0)}%`; 
 
-    let newOffset = 370 - (370 * percentage / 100);
-    console.log(newOffset); 
-    console.log(percentage);
+    let number = document.getElementById('number');
+    number.innerHTML = `${percentage.toFixed(0)}%`;
+
+    let newOffset = 435 - (435 * percentage / 100);
     updateKeyframes(newOffset);
 }
 
 function updateKeyframes(newOffset) {
-    let styleSheet = document.styleSheets[0];  
+    let styleSheet = document.styleSheets[0];
     let keyframes =
         `@keyframes anim {
             100% {
@@ -219,10 +245,10 @@ function updateKeyframes(newOffset) {
             }
         }`;
 
-    styleSheet.insertRule(keyframes, styleSheet.cssRules.length); 
+    styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
 }
 
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function () {
     init();
     displayClients();
     updateOverviewCards();

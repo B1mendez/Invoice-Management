@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invoice Management</title>
   <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/81f487b25f.js" crossorigin="anonymous"></script>
   <script src="./scripts/dashboard.js"></script>
   <script src="./scripts/invoice.js"></script>
@@ -117,8 +120,11 @@
             </div>
           </article>
         </div>
-        <div class="quick-menu">
-          <h2>Quick Menu</h2>
+        <div class="progress-menu">
+          <div id="progress-header">
+            <h2>Summary</h2>
+            <p>Total Invoice Generated 0</p>
+          </div>
           <div class="skill">
             <div class="outer">
               <div class="inner">
@@ -127,15 +133,23 @@
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
               <defs>
-                <linearGradient id="GradientColor">
+                <lineargradient id="GradientColor">
                   <stop offset="0%" stop-color="#84a98c" />
                   <stop offset="100%" stop-color="#52796f" />
-                </linearGradient>
+                </lineargradient>
               </defs>
-              <circle cx="70" cy="70" r="60" stroke-linecap="round" />
+              <circle cx="80" cy="80" r="70" stroke-linecap="round" />
             </svg>
           </div>
-          <h3>Progress towards Total Possible Revenue</h3>
+          <div id="progress-legend">
+            <div class="legend-item">
+              <span class="legend-color" style="background-color: #52796f;"></span>
+              <span class="legend-description">Total Paid</span>
+            </div>
+          </div>
+        </div>
+        <div class="quick-menu">
+          <h2>Quick Menu</h2>
           <div id="action-container">
             <button id="add-invoice">Create Invoice</button>
             <button>Create Estimate</button>
@@ -187,7 +201,7 @@
           <label for="status"></label>
           <select name="text" id="status">
             <option>Paid</option>
-            <option>Unpaid</option>
+            <option>Due</option>
           </select>
 
           <br /><br />
