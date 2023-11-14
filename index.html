@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/81f487b25f.js" crossorigin="anonymous"></script>
-  <script src="./scripts/dashboard.js"></script>
-  <script src="./scripts/invoice.js"></script>
+  <script type="module" src="./scripts/dashboard.js"></script>
+  <script src="./scripts/invoiceService.js"></script>
   <script src="https://unpkg.com/pdf-lib"></script>
   <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
   <script src="https://unpkg.com/downloadjs@1.4.7"></script>
@@ -158,29 +158,27 @@
       </section>
 
       <section class="client">
-        <article id="client-data">
-          <div class="table-header">
-            <h2>Client Data</h2>
-            <button id="add-client">Add Client</button>
-          </div>
+        <div class="table-header">
+          <h2>Client Data</h2>
+          <button id="add-client">Add Client</button>
+        </div>
 
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="client-table-body">
-                <!-- Client rows will be added here -->
-              </tbody>
-            </table>
-          </div>
-        </article>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="client-table-body">
+              <!-- Client rows will be added here -->
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <div id="client-popup">
