@@ -1,4 +1,4 @@
-import { calculateMonthlyRevenue, calculateTotalRevenue, updateKeyframes } from './utilities.js';
+import { filterClientsByStatus, filterClientsByName, calculateMonthlyRevenue, calculateTotalRevenue, updateKeyframes } from './utilities.js';
 import { getClients, addClient, updateClient, deleteClient } from './clientService.js';
 
 function init() {
@@ -11,6 +11,38 @@ function init() {
     close.addEventListener("click", function () {
         hideForm();
     });
+
+    let searchInput = document.getElementById('search-box').querySelector('input');
+    searchInput.addEventListener('keyup', function() {
+        let searchTerm = searchInput.value.trim();
+        let filteredClients = filterClientsByName(getClients(), searchTerm);
+        displayClients(filteredClients);
+    });
+
+    document.getElementById('allClients').addEventListener('click', function() {
+        document.getElementById('allClients').classList.add('activeFilterBtn'); 
+        document.getElementById('paidClients').classList.remove('activeFilterBtn'); 
+        document.getElementById('dueClients').classList.remove('activeFilterBtn'); 
+        displayClients(); 
+    });
+    
+    document.getElementById('paidClients').addEventListener('click', function() {
+        document.getElementById('allClients').classList.remove('activeFilterBtn'); 
+        document.getElementById('paidClients').classList.add('activeFilterBtn'); 
+        document.getElementById('dueClients').classList.remove('activeFilterBtn'); 
+
+        let paidClients = filterClientsByStatus(getClients(), 'Paid');
+        displayClients(paidClients);
+    });
+    
+    document.getElementById('dueClients').addEventListener('click', function() {
+        document.getElementById('allClients').classList.remove('activeFilterBtn'); 
+        document.getElementById('paidClients').classList.remove('activeFilterBtn'); 
+        document.getElementById('dueClients').classList.add('activeFilterBtn'); 
+        let dueClients = filterClientsByStatus(getClients(), 'Due');
+        displayClients(dueClients);
+    });
+
     document.querySelector('#client-popup form').addEventListener('submit', handleFormSubmission);
 }
 
@@ -59,9 +91,11 @@ function handleFormSubmission(e) {
     document.getElementById("client-popup").style.display = "none";
 }
 
-function displayClients() {
-    let clients = getClients();
-    clients.forEach(client => {
+function displayClients(filteredClients = getClients()) {
+    let tbody = document.getElementById('client-table-body');
+    tbody.innerHTML = '';
+
+    filteredClients.forEach(client => {
         let clientData = {
             name: client.name,
             address: client.address,
@@ -73,7 +107,7 @@ function displayClients() {
     });
 }
 
-export function addClientRow(clientData) {
+function addClientRow(clientData) {
     let tbody = document.getElementById('client-table-body');
     let row = tbody.insertRow();
 
@@ -99,7 +133,7 @@ export function addClientRow(clientData) {
     row.insertCell(4).appendChild(editBtn);
 }
 
-export function updateClientRow(updatedClient) {
+function updateClientRow(updatedClient) {
     currentEditingRow.cells[0].textContent = updatedClient.name;
     currentEditingRow.cells[1].textContent = updatedClient.address;
     currentEditingRow.cells[2].textContent = `$ ${updatedClient.amount}.00`;
@@ -113,7 +147,7 @@ export function updateClientRow(updatedClient) {
     }
 }
 
-export function editClientRow(clientData, row) {
+function editClientRow(clientData, row) {
     document.getElementById('name').value = clientData.name;
     document.getElementById('address').value = clientData.address;
     document.getElementById('city').value = clientData.city;
@@ -146,7 +180,7 @@ function deleteClientRow(clientData, row) {
     }
 }
 
-export function updateOverviewCards() {
+function updateOverviewCards() {
     let clients = getClients();
     let totalClients = clients.length;
     let unpaidClients = clients.filter(client => client.status === 'Due').length;
@@ -158,7 +192,7 @@ export function updateOverviewCards() {
     document.getElementById('unpaid-client').textContent = unpaidClients;
 }
 
-export function updateBreakDownBar() {
+function updateBreakDownBar() {
     let clients = getClients();
     let totalRevenue = calculateTotalRevenue(clients);
     let monthlyRevenue = calculateMonthlyRevenue(clients);

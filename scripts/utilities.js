@@ -1,3 +1,14 @@
+export function filterClientsByStatus(clients, status) {
+    if (status === 'All') {
+        return clients;
+    }
+    return clients.filter(client => client.status === status);
+}
+
+export function filterClientsByName(clients, searchTerm) {
+    return clients.filter(client => client.name.toLowerCase().startsWith(searchTerm.toLowerCase()));
+}
+
 export function calculateMonthlyRevenue(clients) {
     let totalPaidAmount = clients
         .filter(client => client.status === 'Paid')

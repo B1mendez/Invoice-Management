@@ -63,10 +63,10 @@
         <h2>Welcome to Your Dashboard</h2>
         <!-- Search Icon -->
         <div id="search-container">
-          <div id="search-box">
+          <!-- <div id="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Search" />
-          </div>
+          </div> -->
           <img src="./images/company-logo.jpg" alt="daniel mendez landscaping logo" />
         </div>
       </section>
@@ -163,6 +163,18 @@
           <button id="add-client">Add Client</button>
         </div>
 
+        <div id="filter-container">
+          <div>
+            <button id="allClients" class="filterBtn activeFilterBtn">All</button>
+            <button id="paidClients" class="filterBtn">Paid</button>
+            <button id="dueClients" class="filterBtn">Due</button>
+          </div>
+          <div id="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+        </div>
+
         <div class="table-container">
           <table>
             <thead>
@@ -252,6 +264,7 @@
         </form>
       </div>
     </div>
+    
     <div id="client" class="page" style="display: none;">
       <h1>TEST</h1>
     </div>
