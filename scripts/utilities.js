@@ -9,6 +9,13 @@ export function filterClientsByName(clients, searchTerm) {
     return clients.filter(client => client.name.toLowerCase().startsWith(searchTerm.toLowerCase()));
 }
 
+export function setActiveFilterButton(activeButtonId) {
+    document.querySelectorAll('.filterBtn').forEach(btn => {
+        btn.classList.remove('activeFilterBtn');
+    });
+    document.getElementById(activeButtonId).classList.add('activeFilterBtn');
+}
+
 export function calculateMonthlyRevenue(clients) {
     let totalPaidAmount = clients
         .filter(client => client.status === 'Paid')

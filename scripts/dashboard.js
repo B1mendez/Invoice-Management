@@ -1,4 +1,4 @@
-import { filterClientsByStatus, filterClientsByName, calculateMonthlyRevenue, calculateTotalRevenue, updateKeyframes } from './utilities.js';
+import { filterClientsByStatus, filterClientsByName, setActiveFilterButton, calculateMonthlyRevenue, calculateTotalRevenue, updateKeyframes } from './utilities.js';
 import { getClients, addClient, updateClient, deleteClient } from './clientService.js';
 
 function init() {
@@ -20,25 +20,18 @@ function init() {
     });
 
     document.getElementById('allClients').addEventListener('click', function() {
-        document.getElementById('allClients').classList.add('activeFilterBtn'); 
-        document.getElementById('paidClients').classList.remove('activeFilterBtn'); 
-        document.getElementById('dueClients').classList.remove('activeFilterBtn'); 
+        setActiveFilterButton('allClients');
         displayClients(); 
     });
     
     document.getElementById('paidClients').addEventListener('click', function() {
-        document.getElementById('allClients').classList.remove('activeFilterBtn'); 
-        document.getElementById('paidClients').classList.add('activeFilterBtn'); 
-        document.getElementById('dueClients').classList.remove('activeFilterBtn'); 
-
+        setActiveFilterButton('paidClients');
         let paidClients = filterClientsByStatus(getClients(), 'Paid');
         displayClients(paidClients);
     });
     
     document.getElementById('dueClients').addEventListener('click', function() {
-        document.getElementById('allClients').classList.remove('activeFilterBtn'); 
-        document.getElementById('paidClients').classList.remove('activeFilterBtn'); 
-        document.getElementById('dueClients').classList.add('activeFilterBtn'); 
+        setActiveFilterButton('dueClients');
         let dueClients = filterClientsByStatus(getClients(), 'Due');
         displayClients(dueClients);
     });
