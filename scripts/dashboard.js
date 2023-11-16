@@ -47,6 +47,7 @@ export function showForm(editMode = false) {
 }
 
 function hideForm() {
+    document.getElementById('client-popup-title').textContent = 'Add Client';
     document.getElementById("client-popup").style.display = "none";
     document.querySelector('#client-popup form').reset();
 }
@@ -118,8 +119,9 @@ function addClientRow(clientData) {
     }
 
     let editBtn = document.createElement('button');
-    editBtn.textContent = 'Edit';
+    editBtn.innerHTML  = '<i class="fa-regular fa-pen-to-square"></i>';
     editBtn.onclick = function () {
+        document.getElementById('client-popup-title').textContent = 'Edit Client';
         let latestClientData = getClients().find(client => client.name === clientData.name);
         editClientRow(latestClientData, row);
     };
