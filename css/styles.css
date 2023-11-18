@@ -1,11 +1,46 @@
 :root {
-  --background-color: linear-gradient(to right, var(--dark-color), var(--light-color));
-  --light-color: #6F5E7F;
-  --meduim-color: #57ACC5;
-  --dark-color: #283f43;
-  --white-color: #ffffff;
+  --background-color: #111927;
+  --background-gradient: radial-gradient(at 47% 33%, hsl(162.00, 77%, 40%) 0, transparent 59%), radial-gradient(at 82% 65%, hsl(220.00, 23%, 28%) 0, transparent 55%);
+  --container-color: rgba(255, 255, 255, 0.5);
+  --container-border-color: rgba(255, 255, 255, 1);
+  --font-color: #000000;
+  --button-background: rgba(255, 255, 255, 1);
+  --button-background-border: rgba(255, 255, 255, 1);
+  --table-background-color: transparent;
+  --tbody-background-color: transparent;
+  --table-font-color: #fff;
+  --price-color-font: #1640D6;
   --grey-white-color: #6e6e6e;
-  --main-background-color: #f1fdf3;
+  --paid-status-color: #23C552;
+  --due-status-color: #F84F31;
+  --status-font-color: #fff;
+  --form-input-background-color: rgba(0, 0, 0, 0.25);
+  --dark-color: #283f43;
+  --search-bar-background-color: rgba(0, 0, 0, 0.1);
+  --form-font-color: #fff;
+
+}
+
+.dark-mode {
+  --background-color: #111927;
+  --background-gradient: radial-gradient(at 47% 33%, hsl(162.00, 77%, 40%) 0, transparent 59%), radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
+  --container-color: rgba(38, 60, 90, 0.7);
+  --container-border-color: rgba(255, 255, 255, 0.125);
+  --font-color: #ffffff;
+  --button-background: rgba(38, 60, 90, 0.49);
+  --button-background-border: rgba(255, 255, 255, 0.125);
+  --table-background-color: rgba(38, 60, 90, 0.25);
+  --tbody-background-color: rgb(0 0 0 / 15%);
+  --table-font-color: #fff;
+  --price-color-font: #39A7FF;
+  --grey-white-color: #6e6e6e;
+  --paid-status-color: #23C552;
+  --due-status-color: #F84F31;
+  --status-font-color: #fff;
+  --form-input-background-color: rgba(0, 0, 0, 0.25);
+  --dark-color: #283f43;
+  --search-bar-background-color: rgba(0, 0, 0, 0.25);
+  --form-font-color: #fff;
 }
 
 * {
@@ -19,10 +54,8 @@
 
 body {
   display: flex;
-  background-color: #111927;
-  background-image:
-    radial-gradient(at 47% 33%, hsl(162.00, 77%, 40%) 0, transparent 59%),
-    radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
+  background-color: var(--background-color);
+  background-image: var(--background-gradient);
 }
 
 main {
@@ -36,7 +69,7 @@ main {
 .global-sidebar {
   width: 240px;
   height: 100vh;
-  position: sticky;
+  position: sticky; 
   top: 0;
   left: 0;
   bottom: 0;
@@ -48,21 +81,31 @@ main {
   border-bottom-right-radius: 20px;
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
 }
 
 .header {
   margin: 25px 0px;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  justify-content: space-evenly;
+
+}
+
+.header h1 {
+  color: var(--font-color);
+  font-size: 2rem;
 }
 
 .global-sidebar h2 {
   margin-top: 0;
   margin-bottom: 20px;
   text-align: center;
+  color: var(--font-color);
 }
 
 .global-sidebar img {
@@ -70,10 +113,10 @@ main {
 }
 
 .menu-sidebar {
-  height: 88%;
   position: relative;
   list-style: none;
   padding: 0;
+  height: 70%;
 }
 
 .menu-sidebar ul {
@@ -88,7 +131,7 @@ main {
 }
 
 .menu-sidebar ul li a {
-  color: #fff;
+  color: var(--font-color);
   text-decoration: none;
   font-size: 14px;
   display: flex;
@@ -108,9 +151,86 @@ main {
 .active {
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
+}
+
+#toggle-switch {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+#toggle-switch label {
+  width: 15vw;
+  height: 7vw;
+  max-width: 90px;
+  max-height: 40px;
+  position: relative;
+  display: block;
+  background: var(--container-color);
+  border-radius: 40px;
+  backdrop-filter: blur(10px) saturate(200%);
+  -webkit-backdrop-filter: blur(10px) saturate(200%);
+  cursor: pointer;
+}
+
+#toggle-switch label:after {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  top: 2px;
+  left: 2px;
+  border-radius: 36px;
+  background: var(--container-background);
+
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.55);
+}
+
+#toggle-switch input {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+#toggle-switch input:checked+label:after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+  background: var(--container-color);
+}
+
+#toggle-switch label,
+label:after {
+  transition: 0.3s
+}
+
+#toggle-switch label svg {
+  position: absolute;
+  width: 30px;
+  top: 5px;
+  z-index: 100;
+}
+
+#toggle-switch label svg.sun {
+  left: 5px;
+  fill: #fff;
+  transition: 0.3s;
+}
+
+#toggle-switch label svg.moon {
+  right: 5px;
+  fill: #fff;
+  transition: 0.3s;
+}
+
+#toggle-switch input:checked+label svg.sun {
+  fill: #7e7e7e;
+}
+
+#toggle-switch input:checked+label svg.moon {
+  fill: #fff;
 }
 
 .page {
@@ -133,14 +253,15 @@ main {
   padding: 10px;
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
+  transition: all 0.5s ease-in-out;
 }
 
 .home h2 {
   font-size: 35px;
-  color: var(--white-color);
+  color: var(--font-color);
 }
 
 #search-container {
@@ -156,13 +277,14 @@ main {
   padding: 10px 12px;
   width: 25%;
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(0, 0, 0, 0.25);
-  border: 1px solid grey;
+  background-color: var(--search-bar-background-color);
+  border: 1px solid var(--button-background-border);
   color: white;
   border-radius: 10px;
 }
 
 #search-box i {
+  color: var(--font-color);
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.5s ease-out;
@@ -177,7 +299,7 @@ main {
   background: transparent;
   width: 95%;
   font-size: 16px;
-  color: var(--white-color)
+  color: white;
 }
 
 #search-container img {
@@ -210,9 +332,10 @@ main {
   padding: 20px;
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.5);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
+  transition: all 0.5s ease-in-out;
 }
 
 .icon-container {
@@ -228,13 +351,13 @@ main {
 
 .icon-container i {
   font-size: 24px;
-  color: white;
+  color: var(--font-color);
 }
 
 .info-container h3 {
   font-size: 18px;
   margin-bottom: 10px;
-  color: var(--white-color);
+  color: var(--font-color);
 }
 
 .overview-details {
@@ -245,14 +368,14 @@ main {
 .overview-details i {
   font-size: 25px;
   margin-right: 10px;
-  color: var(--white-color);
+  color: var(--font-color);
 
 }
 
 .overview-details p {
   font-size: 30px;
   margin: 0;
-  color: var(--white-color);
+  color: var(--font-color);
 }
 
 .progress-menu {
@@ -266,9 +389,10 @@ main {
   align-items: center;
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.5);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
+  transition: all 0.5s ease-in-out;
 }
 
 #progress-header {
@@ -282,12 +406,12 @@ main {
 #progress-header h2 {
   align-self: flex-start;
   font-size: 25px;
-  color: var(--white-color);
+  color: var(--font-color);
 }
 
 #progress-header p {
   margin-top: auto;
-  color: var(--white-color)
+  color: var(--font-color);
 }
 
 .skill {
@@ -318,7 +442,7 @@ main {
 
 #number {
   font-weight: 600;
-  color: var(--white-color);
+  color: var(--font-color);
   font-size: 30px;
 }
 
@@ -353,14 +477,15 @@ main {
   align-items: center;
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.5);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
+  transition: all 0.5s ease-in-out;
 }
 
 .quick-menu h2 {
   font-size: 20px;
-  color: var(--white-color);
+  color: var(--font-color);
 }
 
 #progress-legend {
@@ -388,7 +513,7 @@ main {
 
 .legend-description {
   display: inline-block;
-  color: var(--white-color);
+  color: var(--font-color);
 }
 
 #action-container {
@@ -397,15 +522,16 @@ main {
   flex-direction: column;
   align-items: center;
   margin-top: 25px;
+  transition: all 0.5s ease-in-out;
 }
 
 #action-container button {
   margin: 10px;
   width: 135px;
   padding: 10px 15px;
-  background-color: transparent;
-  border: 1px solid var(--white-color);
-  color: white;
+  background-color: var(--button-background);
+  border: 1px solid var(--button-background-border);
+  color: var(--font-color);
   border-radius: 18px;
 }
 
@@ -424,9 +550,10 @@ main {
   flex-direction: column;
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
+  transition: all 0.5s ease-in-out;
 }
 
 .table-header {
@@ -441,9 +568,9 @@ main {
   width: 135px;
   padding: 10px 15px;
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: transparent;
-  border: 1px solid var(--white-color);
-  color: white;
+  background-color: var(--button-background);
+  border: 1px solid var(--button-background-border);
+  color: var(--font-color);
   border-radius: 18px;
 }
 
@@ -454,7 +581,7 @@ main {
 .client h2 {
   margin-bottom: 10px;
   font-size: 25px;
-  color: var(--white-color);
+  color: var(--font-color);
 }
 
 #filter-container {
@@ -471,15 +598,15 @@ main {
   border: none;
   font-size: 16px;
   font-weight: bold;
-  color: var(--white-color);
+  color: var(--font-color);
   background-color: transparent;
 }
 
 .activeFilterBtn {
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--button-background);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
-  color: #fff;
+  border: 1px solid var(--button-background-border);
+  color: var(--font-color);
 }
 
 .table-container {
@@ -512,8 +639,8 @@ table {
 thead {
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.25);
-  color: #fff;
+  background-color: var(--table-background-color);
+  color: var(--font-color);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
@@ -524,24 +651,25 @@ th {
 }
 
 tbody {
-  background: rgb(0 0 0 / 15%);
+  background: var(--tbody-background-color);
 }
 
 td {
   padding: 15px;
   font-size: 16px;
-  color: var(--white-color);
+  font-weight: 600;
+  color: var(--font-color);
 }
 
 td:nth-child(3) {
-  color: #39A7FF;
+  color: var(--price-color-font);
   font-weight: 700;
   font-size: 16px;
 }
 
 .paid-status {
-  background-color: green;
-  color: var(--white-color);
+  background-color: var(--paid-status-color);
+  color: var(--status-font-color);
   border-radius: 15px;
   text-align: center;
   padding: 5px 10px;
@@ -552,8 +680,8 @@ td:nth-child(3) {
 }
 
 .unpaid-status {
-  background-color: red;
-  color: var(--white-color);
+  background-color: var(--due-status-color);
+  color: var(--status-font-color);
   border-radius: 15px;
   text-align: center;
   padding: 5px 10px;
@@ -572,30 +700,30 @@ tfoot td {
 }
 
 .table-container button {
-  color: var(--white-color);
+  color: var(--font-color);
   background-color: transparent;
   padding: 8px 16px;
   font-size: 16px;
 }
 
 .table-container button:hover {
-  border: 1px solid white;
+  border: 1px solid var(--font-color);
   border-radius: 10px;
   background-color: #666;
 }
 
 select {
   background-color: rgba(0, 0, 0, 0.25);
-  color: white; 
-  font-size: 16px; 
-  padding: 10px; 
-  border: none; 
-  border-radius: 5px; 
-  width: 100%; 
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
   margin-bottom: 10px;
 }
 
-option{
+option {
   background-color: var(--grey-white-color);
 }
 
@@ -608,35 +736,34 @@ option{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f1f1f1;
   padding: 5% 5% 3%;
   position: fixed;
   bottom: 0;
   right: 15px;
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
   z-index: 10;
 }
 
 #client-popup h2 {
   margin-bottom: 0.5rem;
   font-size: 25px;
-  color: var(--white-color);
+  color: var(--font-color);
   text-align: center;
 }
 
-#client-popup p{
+#client-popup p {
   margin-bottom: 2.5rem;
   font-size: 16px;
-  color: var(--white-color);
+  color: var(--font-color);
   text-align: center;
 }
 
 #client-popup form label {
-  color: var(--white-color);
+  color: var(--font-color);
   font-size: 18px;
 }
 
@@ -649,14 +776,14 @@ option{
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 12px;
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
 }
 
 #client-popup input[type="submit"]:hover {
-  background-color: #5F6A6A;
-} 
+  background-color: var(--grey-white-color);
+}
 
 .form-row {
   display: flex;
@@ -676,7 +803,7 @@ option{
 #client-popup input[type="text"],
 input[type="number"] {
   background-color: rgba(0, 0, 0, 0.25);
-  color: white;
+  color: var(--form-font-color);
   font-size: 16px;
   padding: 10px;
   border: none;
@@ -724,30 +851,29 @@ input[type="number"] {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f1f1f1;
   padding: 5% 5% 3%;
   position: fixed;
   bottom: 0;
   right: 15px;
   backdrop-filter: blur(10px) saturate(200%);
   -webkit-backdrop-filter: blur(10px) saturate(200%);
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
   z-index: 10;
 }
 
 #invoice-popup h2 {
   margin-bottom: 0.5rem;
   font-size: 25px;
-  color: var(--white-color);
+  color: var(--font-color);
   text-align: center;
 }
 
-#invoice-popup p{
+#invoice-popup p {
   margin-bottom: 2.5rem;
   font-size: 16px;
-  color: var(--white-color);
+  color: var(--font-color);
   text-align: center;
 }
 
@@ -759,7 +885,7 @@ input[type="number"] {
   margin: 5px 0;
   align-items: center;
   text-align: left;
-  color: var(--white-color);
+  color: var(--font-color);
 }
 
 
@@ -772,7 +898,7 @@ input[type="number"] {
 
 #container-details {
   display: flex;
-  flex: row;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 10px;
@@ -788,10 +914,12 @@ input[type="number"] {
 
 #invoice-popup input[type="text"] {
   margin-bottom: 10px;
+  color: var(--form-font-color);
+
 }
 
 #invoice-popup input[type="submit"] {
-  color: white;
+  color: var(--font-color);
   padding: 10px 20px;
   text-align: center;
   display: inline-block;
@@ -799,13 +927,13 @@ input[type="number"] {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 12px;
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--container-border-color);
 }
 
 #invoice-popup input[type="submit"]:hover {
-  background-color: #5F6A6A;
+  background-color: var(--grey-white-color);
 }
 
 #close-button {
@@ -849,11 +977,11 @@ input[type="number"] {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 12px;
-  background-color: rgba(38, 60, 90, 0.49);
+  background-color: var(--button-background);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid var(--button-background-border);
 }
 
 #delete-button button:hover {
-  background-color: #5F6A6A;
+  background-color: var(--grey-white-color);
 }

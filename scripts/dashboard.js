@@ -35,6 +35,12 @@ function init() {
         let dueClients = filterClientsByStatus(getClients(), 'Due');
         displayClients(dueClients);
     });
+    
+
+    document.getElementById('light&night-mode').addEventListener('click', function() {
+        let isDarkMode = document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+    }); 
 
     document.querySelector('#client-popup form').addEventListener('submit', handleFormSubmission);
 }
@@ -199,6 +205,17 @@ function updateBreakDownBar() {
     let newOffset = 435 - (435 * percentage / 100);
     updateKeyframes(newOffset);
 }
+
+window.onload = () => {
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        document.getElementById('light&night-mode').checked = true;
+    } else {
+        document.body.classList.remove('dark-mode');
+        document.getElementById('light&night-mode').checked = false; 
+    }
+};
 
 window.addEventListener("DOMContentLoaded", function () {
     init();
