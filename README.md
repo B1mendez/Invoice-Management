@@ -1,7 +1,7 @@
 # Invoice Management Software
 ## Invoice Management software for Daniel Mendez Landscaping 
 
-![InvoiSync logo](/images/inviosync.png)
+![InvoiSync logo](/images/invoisync.png)
 
 This project serves as an Invoice Management System designed to generate, track, and store monthly invoices in PDF format. It also securely retains vital client information and enables quick and precise estimate calculations. Tailored to streamline operations for small businesses, InvoiSync has notably saved Daniel Mendez Landscaping over 5 hours each month by bringing organization and automation to the company's invoicing process.
 
