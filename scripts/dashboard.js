@@ -36,9 +36,9 @@ function init() {
         displayClients(dueClients);
     });
     
-
     document.getElementById('light&night-mode').addEventListener('click', function() {
         let isDarkMode = document.body.classList.toggle('dark-mode');
+
         localStorage.setItem('darkMode', isDarkMode);
     }); 
 
@@ -209,10 +209,8 @@ function updateBreakDownBar() {
 window.onload = () => {
     let isDarkMode = localStorage.getItem('darkMode') === 'true';
     if (isDarkMode) {
-        document.body.classList.add('dark-mode');
         document.getElementById('light&night-mode').checked = true;
     } else {
-        document.body.classList.remove('dark-mode');
         document.getElementById('light&night-mode').checked = false; 
     }
 };
