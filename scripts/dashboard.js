@@ -35,6 +35,12 @@ function init() {
         let dueClients = filterClientsByStatus(getClients(), 'Due');
         displayClients(dueClients);
     });
+    
+
+    document.getElementById('light&night-mode').addEventListener('click', function() {
+        let isDarkMode = document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+    }); 
 
     document.querySelector('#client-popup form').addEventListener('submit', handleFormSubmission);
 }
@@ -47,6 +53,7 @@ export function showForm(editMode = false) {
 }
 
 function hideForm() {
+    document.getElementById('client-popup-title').textContent = 'Add Client';
     document.getElementById("client-popup").style.display = "none";
     document.querySelector('#client-popup form').reset();
 }
@@ -118,8 +125,9 @@ function addClientRow(clientData) {
     }
 
     let editBtn = document.createElement('button');
-    editBtn.textContent = 'Edit';
+    editBtn.innerHTML  = '<i class="fa-regular fa-pen-to-square"></i>';
     editBtn.onclick = function () {
+        document.getElementById('client-popup-title').textContent = 'Edit Client';
         let latestClientData = getClients().find(client => client.name === clientData.name);
         editClientRow(latestClientData, row);
     };
@@ -197,6 +205,17 @@ function updateBreakDownBar() {
     let newOffset = 435 - (435 * percentage / 100);
     updateKeyframes(newOffset);
 }
+
+window.onload = () => {
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        document.getElementById('light&night-mode').checked = true;
+    } else {
+        document.body.classList.remove('dark-mode');
+        document.getElementById('light&night-mode').checked = false; 
+    }
+};
 
 window.addEventListener("DOMContentLoaded", function () {
     init();

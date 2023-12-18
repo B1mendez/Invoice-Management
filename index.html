@@ -54,6 +54,22 @@
         </li>
       </ul>
     </nav>
+    <div id="toggle-switch">
+      <input type="checkbox" id="light&night-mode" />
+      <label for="light&night-mode">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
+            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M3.32031 11.6835C3.32031 16.6541 7.34975 20.6835 12.3203 20.6835C16.1075 20.6835 19.3483 18.3443 20.6768 15.032C19.6402 15.4486 18.5059 15.6834 17.3203 15.6834C12.3497 15.6834 8.32031 11.654 8.32031 6.68342C8.32031 5.50338 8.55165 4.36259 8.96453 3.32996C5.65605 4.66028 3.32031 7.89912 3.32031 11.6835Z"
+            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+      </label>
+    </div>
   </header>
 
   <!-- Main Content -->
@@ -61,12 +77,7 @@
     <div id="dashboard" class="page">
       <section class="home">
         <h2>Welcome to Your Dashboard</h2>
-        <!-- Search Icon -->
         <div id="search-container">
-          <!-- <div id="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search" />
-          </div> -->
           <img src="./images/company-logo.jpg" alt="daniel mendez landscaping logo" />
         </div>
       </section>
@@ -134,8 +145,8 @@
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
               <defs>
                 <lineargradient id="GradientColor">
-                  <stop offset="0%" stop-color="#84a98c" />
-                  <stop offset="100%" stop-color="#52796f" />
+                  <stop offset="0%" stop-color="#1CE9A5 " />
+                  <stop offset="100%" stop-color="#0D5D43" />
                 </lineargradient>
               </defs>
               <circle cx="80" cy="80" r="70" stroke-linecap="round" />
@@ -143,7 +154,7 @@
           </div>
           <div id="progress-legend">
             <div class="legend-item">
-              <span class="legend-color" style="background-color: #52796f;"></span>
+              <span class="legend-color"></span>
               <span class="legend-description">Total Paid</span>
             </div>
           </div>
@@ -194,69 +205,72 @@
       </section>
 
       <div id="client-popup">
+        <h2 id="client-popup-title">Add Client</h2>
+        <p>Enter the required information below</p>
         <form>
           <button id="close-button" aria-label="Close alert" type="button">
             <span aria-hidden="true">&times;</span>
           </button>
-          <label for="name">Name:</label><br />
-          <input type="text" id="name" name="fname" /><br />
-          <label for="address">Address:</label><br />
-          <input type="text" id="address" name="address" /><br />
-          <label for="city">City/Zipcode</label><br />
-          <input type="text" id="city" name="city/zipcode" /><br />
+          <div class="form-row">
+            <div>
+              <input type="text" id="name" name="fname" placeholder="Name" />
+            </div>
 
-          <label for="amount">Amount:</label><br />
-          <input type="number" id="amount" name="amount" /><br />
+            <div>
+              <input type="number" id="amount" name="amount" placeholder="Amount" />
+            </div>
+          </div>
 
-          <label for="status"></label>
+          <div class="form-row">
+            <div>
+              <input type="text" id="address" name="address" placeholder="Address" />
+            </div>
+
+            <div>
+              <input type="text" id="city" name="city/zipcode" placeholder="City/Zipcode" />
+            </div>
+          </div>
+
           <select name="text" id="status">
             <option>Paid</option>
             <option>Due</option>
           </select>
 
-          <br /><br />
-          <input type="submit" value="Submit" />
-          <button id="delete-button" aria-label="Close alert" type="button">
-            <span aria-hidden="true">Delete</span>
-          </button>
+          <div class="form-row">
+            <input type="submit" value="Submit" />
+            <button id="delete-button" aria-label="Close alert" type="button">
+              <span aria-hidden="true">Delete</span>
+            </button>
+          </div>
         </form>
       </div>
 
       <div id="invoice-popup">
+        <h2>Create Invoice</h2>
+        <p>Type the service rate followed by its quanity</p>
         <form>
           <button id="invoice-close-button" aria-label="Close alert" type="button">
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="column">
             <select id="clientSelect"></select>
-            <label for="rateService">Quantity:</label>
-            <input type="number" id="rateService" name="Rate" />
+            <input type="number" id="rateService" name="Rate" placeholder="Months" />
           </div>
 
           <div id="container-details">
             <div class="column">
-              <label for="trim">Trim:</label>
-              <input type="number" id="trim" name="Trim" />
-              <label for="cleanUp">Clean-up:</label>
-              <input type="number" id="cleanUp" name="Clean-Up" />
-              <label for="irrigation">Irrigation:</label>
-              <input type="number" id="irrigation" name="Irrigation" />
-              <label for="plant">Plants:</label>
-              <input type="number" id="plant" name="Plant" />
-              <label for="other">Other:</label>
-              <input type="number" id="other" name="other" />
+              <input type="number" id="trim" name="Trim" placeholder="Trim" />
+              <input type="number" id="cleanUp" name="Clean-Up" placeholder="Clean-Up" />
+              <input type="number" id="irrigation" name="Irrigation" placeholder="Irrigation" />
+              <input type="number" id="plant" name="Plant" placeholder="Plants" />
+              <input type="number" id="other" name="other" placeholder="Other" />
             </div>
             <div class="column">
-              <label for="rateTrim">Quantity:</label>
-              <input type="number" id="rateTrim" name="Rate" />
-              <label for="rateCleanUp">Quantity:</label>
-              <input type="number" id="rateCleanUp" name="Rate" />
-              <label for="rateIrrigation">Quantity:</label>
-              <input type="number" id="rateIrrigation" name="Rate" />
-              <label for="ratePlants">Quantity:</label>
-              <input type="number" id="ratePlants" name="Rate" />
-              <label for="rateOther">Quantity:</label>
-              <input type="number" id="rateOther" name="Rate" />
+              <input type="number" id="rateTrim" name="Rate" placeholder="Qty" />
+              <input type="number" id="rateCleanUp" name="Rate" placeholder="Qty" />
+              <input type="number" id="rateIrrigation" name="Rate" placeholder="Qty" />
+              <input type="number" id="ratePlants" name="Rate" placeholder="Qty" />
+              <input type="number" id="rateOther" name="Rate" placeholder="Qty" />
             </div>
           </div>
 
@@ -264,7 +278,7 @@
         </form>
       </div>
     </div>
-    
+
     <div id="client" class="page" style="display: none;">
       <h1>TEST</h1>
     </div>
@@ -295,7 +309,7 @@
             });
 
             const sections = ['dashboard', 'client', 'invoice', 'estimate'];
-            document.getElementById(sections[index]).style.display = 'block';
+            document.getElementById(sections[index]).style.display = 'flex';
           });
         });
       });
