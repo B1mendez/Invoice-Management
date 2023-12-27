@@ -768,7 +768,7 @@ option {
 }
 
 #client-popup input[type="submit"] {
-  color: white;
+  color: var(--font-color);
   padding: 10px 20px;
   text-align: center;
   display: inline-block;
@@ -945,7 +945,7 @@ input[type="number"] {
   background-color: transparent;
   font-size: 2.5em;
   cursor: pointer;
-  color: var(--dark-color);
+  color: var(--font-color);
 }
 
 #close-button:hover {
@@ -970,16 +970,16 @@ input[type="number"] {
 
 #delete-button {
   display: none;
-  color: white;
+  color: var(--font-color);
   padding: 10px 20px;
   text-align: center;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 12px;
-  background-color: var(--button-background);
+  background-color: var(--container-color);
   border-radius: 12px;
-  border: 1px solid var(--button-background-border);
+  border: 1px solid var(--container-border-color);
 }
 
 #delete-button button:hover {
