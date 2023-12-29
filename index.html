@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/81f487b25f.js" crossorigin="anonymous"></script>
-  <script defer type="module" src="./scripts/dashboard.js"></script>
+  <script type="module" src="./scripts/dashboard.js"></script>
   <script src="./scripts/invoiceService.js"></script>
   <script src="https://unpkg.com/pdf-lib"></script>
   <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
@@ -200,7 +200,7 @@
           </div>
         </div>
 
-        <div class="table-container">
+        <div class="table-container"> 
           <table>
             <thead>
               <tr>
@@ -217,84 +217,44 @@
           </table>
         </div>
       </section>
-
-      <div id="client-popup">
-        <h2 id="client-popup-title">Add Client</h2>
-        <p id="client-popup-display">Enter the required information below</p>
-        <form>
-          <button id="close-button" aria-label="Close alert" type="button">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="form-row">
-            <div class="input-control">
-              <input type="text" id="name" name="fname" placeholder="Name" />
-            </div>
-
-            <div class="input-control">
-              <input type="number" id="amount" name="amount" placeholder="Amount" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="input-control">
-              <input type="text" id="address" name="address" placeholder="Address" />
-            </div>
-
-            <div class="input-control">
-              <input type="text" id="city" name="city/zipcode" placeholder="City/Zipcode" />
-            </div>
-          </div>
-
-          <select name="text" id="status">
-            <option>Paid</option>
-            <option>Due</option>
-          </select>
-
-          <div class="form-row">
-            <input type="submit" value="Submit" />
-            <button id="delete-button" aria-label="Close alert" type="button">
-              <span aria-hidden="true">Delete</span>
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div id="invoice-popup">
-        <h2>Create Invoice</h2>
-        <p>Type the service rate followed by its quanity</p>
-        <form>
-          <button id="invoice-close-button" aria-label="Close alert" type="button">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="column">
-            <select id="clientSelect"></select>
-            <input type="number" id="rateService" name="Rate" placeholder="Months" />
-          </div>
-
-          <div id="container-details">
-            <div class="column">
-              <input type="number" id="trim" name="Trim" placeholder="Trim" />
-              <input type="number" id="cleanUp" name="Clean-Up" placeholder="Clean-Up" />
-              <input type="number" id="irrigation" name="Irrigation" placeholder="Irrigation" />
-              <input type="number" id="plant" name="Plant" placeholder="Plants" />
-              <input type="number" id="other" name="other" placeholder="Other" />
-            </div>
-            <div class="column">
-              <input type="number" id="rateTrim" name="Rate" placeholder="Qty" />
-              <input type="number" id="rateCleanUp" name="Rate" placeholder="Qty" />
-              <input type="number" id="rateIrrigation" name="Rate" placeholder="Qty" />
-              <input type="number" id="ratePlants" name="Rate" placeholder="Qty" />
-              <input type="number" id="rateOther" name="Rate" placeholder="Qty" />
-            </div>
-          </div>
-
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
     </div>
 
     <div id="client" class="page" style="display: none;">
-      <h1>TEST</h1>
+      <!-- <section class="client">
+        <div class="table-header">
+          <h2>Client Data</h2>
+          <button id="add-client">Add Client</button>
+        </div>
+
+        <div id="filter-container">
+          <div>
+            <button id="allClients" class="filterBtn activeFilterBtn">All</button>
+            <button id="paidClients" class="filterBtn">Paid</button>
+            <button id="dueClients" class="filterBtn">Due</button>
+          </div>
+          <div id="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="client-table-body">
+              <!-- Client rows will be added here -->
+            </tbody>
+          </table>
+        </div>
+      </section> -->
     </div>
 
     <div id="invoice" class="page" style="display: none;">
@@ -303,6 +263,79 @@
 
     <div id="estimate" class="page" style="display: none;">
       <!-- Estimate HTML goes here -->
+    </div>
+
+    <div id="client-popup">
+      <h2 id="client-popup-title">Add Client</h2>
+      <p id="client-popup-display">Enter the required information below</p>
+      <form>
+        <button id="close-button" aria-label="Close alert" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="form-row">
+          <div class="input-control">
+            <input type="text" id="name" name="fname" placeholder="Name" />
+          </div>
+
+          <div class="input-control">
+            <input type="number" id="amount" name="amount" placeholder="Amount" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-control">
+            <input type="text" id="address" name="address" placeholder="Address" />
+          </div>
+
+          <div class="input-control">
+            <input type="text" id="city" name="city/zipcode" placeholder="City/Zipcode" />
+          </div>
+        </div>
+
+        <select name="text" id="status">
+          <option>Paid</option>
+          <option>Due</option>
+        </select>
+
+        <div class="form-row">
+          <input type="submit" value="Submit" />
+          <button id="delete-button" aria-label="Close alert" type="button">
+            <span aria-hidden="true">Delete</span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div id="invoice-popup">
+      <h2>Create Invoice</h2>
+      <p>Type the service rate followed by its quanity</p>
+      <form>
+        <button id="invoice-close-button" aria-label="Close alert" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="column">
+          <select id="clientSelect"></select>
+          <input type="number" id="rateService" name="Rate" placeholder="Months" />
+        </div>
+
+        <div id="container-details">
+          <div class="column">
+            <input type="number" id="trim" name="Trim" placeholder="Trim" />
+            <input type="number" id="cleanUp" name="Clean-Up" placeholder="Clean-Up" />
+            <input type="number" id="irrigation" name="Irrigation" placeholder="Irrigation" />
+            <input type="number" id="plant" name="Plant" placeholder="Plants" />
+            <input type="number" id="other" name="other" placeholder="Other" />
+          </div>
+          <div class="column">
+            <input type="number" id="rateTrim" name="Rate" placeholder="Qty" />
+            <input type="number" id="rateCleanUp" name="Rate" placeholder="Qty" />
+            <input type="number" id="rateIrrigation" name="Rate" placeholder="Qty" />
+            <input type="number" id="ratePlants" name="Rate" placeholder="Qty" />
+            <input type="number" id="rateOther" name="Rate" placeholder="Qty" />
+          </div>
+        </div>
+
+        <input type="submit" value="Submit" />
+      </form>
     </div>
 
     <script>

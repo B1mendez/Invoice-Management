@@ -1,6 +1,11 @@
 :root {
   --background-color: #111927;
-  --background-gradient: radial-gradient(at 47% 33%, hsl(162.00, 77%, 40%) 0, transparent 59%), radial-gradient(at 82% 65%, hsl(220.00, 23%, 28%) 0, transparent 55%);
+  --background-gradient: radial-gradient(
+      at 47% 33%,
+      hsl(162, 77%, 40%) 0,
+      transparent 59%
+    ),
+    radial-gradient(at 82% 65%, hsl(220, 23%, 28%) 0, transparent 55%);
   --container-color: rgba(255, 255, 255, 0.5);
   --container-border-color: rgba(255, 255, 255, 1);
   --font-color: #000000;
@@ -9,21 +14,25 @@
   --table-background-color: transparent;
   --tbody-background-color: transparent;
   --table-font-color: #fff;
-  --price-color-font: #1640D6;
+  --price-color-font: #1640d6;
   --grey-white-color: #6e6e6e;
-  --paid-status-color: #23C552;
-  --due-status-color: #F84F31;
+  --paid-status-color: #23c552;
+  --due-status-color: #f84f31;
   --status-font-color: #fff;
   --form-input-background-color: rgba(0, 0, 0, 0.25);
   --dark-color: #283f43;
   --search-bar-background-color: rgba(0, 0, 0, 0.1);
   --form-font-color: #fff;
-
 }
 
 .dark-mode {
   --background-color: #111927;
-  --background-gradient: radial-gradient(at 47% 33%, hsl(162.00, 77%, 40%) 0, transparent 59%), radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
+  --background-gradient: radial-gradient(
+      at 47% 33%,
+      hsl(162, 77%, 40%) 0,
+      transparent 59%
+    ),
+    radial-gradient(at 82% 65%, hsl(218, 39%, 11%) 0, transparent 55%);
   --container-color: rgba(38, 60, 90, 0.7);
   --container-border-color: rgba(255, 255, 255, 0.125);
   --font-color: #ffffff;
@@ -32,10 +41,10 @@
   --table-background-color: rgba(38, 60, 90, 0.25);
   --tbody-background-color: rgb(0 0 0 / 15%);
   --table-font-color: #fff;
-  --price-color-font: #39A7FF;
+  --price-color-font: #39a7ff;
   --grey-white-color: #6e6e6e;
-  --paid-status-color: #23C552;
-  --due-status-color: #F84F31;
+  --paid-status-color: #23c552;
+  --due-status-color: #f84f31;
   --status-font-color: #fff;
   --form-input-background-color: rgba(0, 0, 0, 0.25);
   --dark-color: #283f43;
@@ -49,7 +58,7 @@
   border: none;
   outline: none;
   box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 body {
@@ -69,7 +78,7 @@ main {
 .global-sidebar {
   width: 240px;
   height: 100vh;
-  position: sticky; 
+  position: sticky;
   top: 0;
   left: 0;
   bottom: 0;
@@ -93,7 +102,6 @@ main {
   align-items: center;
   text-align: center;
   justify-content: space-evenly;
-
 }
 
 .header h1 {
@@ -195,7 +203,7 @@ main {
   visibility: hidden;
 }
 
-#toggle-switch input:checked+label:after {
+#toggle-switch input:checked + label:after {
   left: calc(100% - 2px);
   transform: translateX(-100%);
   background: var(--container-color);
@@ -203,7 +211,7 @@ main {
 
 #toggle-switch label,
 label:after {
-  transition: 0.3s
+  transition: 0.3s;
 }
 
 #toggle-switch label svg {
@@ -225,11 +233,11 @@ label:after {
   transition: 0.3s;
 }
 
-#toggle-switch input:checked+label svg.sun {
+#toggle-switch input:checked + label svg.sun {
   fill: #7e7e7e;
 }
 
-#toggle-switch input:checked+label svg.moon {
+#toggle-switch input:checked + label svg.moon {
   fill: #fff;
 }
 
@@ -241,7 +249,7 @@ label:after {
   padding: 0;
 }
 
-/* Home Screen */
+/* Home Screen styling section*/
 .home {
   flex-grow: 1;
   flex-shrink: 2;
@@ -369,7 +377,6 @@ label:after {
   font-size: 25px;
   margin-right: 10px;
   color: var(--font-color);
-
 }
 
 .overview-details p {
@@ -378,6 +385,7 @@ label:after {
   color: var(--font-color);
 }
 
+/* Overview display styling section */
 .progress-menu {
   flex-basis: 35%;
   margin-left: 20px;
@@ -424,7 +432,8 @@ label:after {
   height: 160px;
   width: 160px;
   padding: 20px;
-  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.65), -6px -6px 10px -1px rgba(0, 0, 0, 0.17);
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.65),
+    -6px -6px 10px -1px rgba(0, 0, 0, 0.17);
   border-radius: 50%;
 }
 
@@ -435,8 +444,9 @@ label:after {
   align-items: center;
   justify-content: center;
   box-shadow: inset 4px 4px 6px -1px rgb(0 0 0 / 84%),
-    inset -4px -4px 6px -1px rgb(0 0 0 / 17%), -0.5px -0.5px 0px rgb(0 0 0 / 36%),
-    0.5px 0.5px 0px rgb(0 0 0 / 14%), 0px 12px 10px -10px rgb(0 0 0 / 10%);
+    inset -4px -4px 6px -1px rgb(0 0 0 / 17%),
+    -0.5px -0.5px 0px rgb(0 0 0 / 36%), 0.5px 0.5px 0px rgb(0 0 0 / 14%),
+    0px 12px 10px -10px rgb(0 0 0 / 10%);
   border-radius: 50%;
 }
 
@@ -508,7 +518,7 @@ label:after {
   height: 20px;
   display: inline-block;
   margin-right: 5px;
-  background-color: #1CE9A5;
+  background-color: #1ce9a5;
 }
 
 .legend-description {
@@ -536,9 +546,10 @@ label:after {
 }
 
 #action-container button:hover {
-  background-color: #5F6A6A;
+  background-color: #5f6a6a;
 }
 
+/* Table and Client display styling */
 .client {
   flex-grow: 12;
   flex-shrink: 1;
@@ -575,7 +586,7 @@ label:after {
 }
 
 .table-header button:hover {
-  background-color: #5F6A6A;
+  background-color: #5f6a6a;
 }
 
 .client h2 {
@@ -727,6 +738,7 @@ option {
   background-color: var(--grey-white-color);
 }
 
+/* All Form Style Section: Client and invoice popup displays */ 
 #client-popup {
   display: none;
   text-align: center;
@@ -791,12 +803,12 @@ option {
   margin-bottom: 15px;
 }
 
-.form-row>div {
+.form-row > div {
   flex: 1;
   margin-right: 10px;
 }
 
-.form-row>div:last-child {
+.form-row > div:last-child {
   margin-right: 0;
 }
 
@@ -888,7 +900,6 @@ input[type="number"] {
   color: var(--font-color);
 }
 
-
 #invoice-popup .row {
   display: flex;
   flex-direction: row;
@@ -915,7 +926,6 @@ input[type="number"] {
 #invoice-popup input[type="text"] {
   margin-bottom: 10px;
   color: var(--form-font-color);
-
 }
 
 #invoice-popup input[type="submit"] {
@@ -989,4 +999,3 @@ input[type="number"] {
 .error-display-text {
   color: var(--due-status-color) !important;
 }
-
