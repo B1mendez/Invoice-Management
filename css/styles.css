@@ -961,7 +961,7 @@ input[type="number"] {
   background-color: transparent;
   font-size: 2.5em;
   cursor: pointer;
-  color: var(--dark-color);
+  color: var(--font-color);
 }
 
 #invoice-close-button:hover {
@@ -985,3 +985,8 @@ input[type="number"] {
 #delete-button button:hover {
   background-color: var(--grey-white-color);
 }
+
+.error-display-text {
+  color: var(--due-status-color) !important;
+}
+

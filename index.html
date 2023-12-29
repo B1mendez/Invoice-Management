@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/81f487b25f.js" crossorigin="anonymous"></script>
-  <script type="module" src="./scripts/dashboard.js"></script>
+  <script defer type="module" src="./scripts/dashboard.js"></script>
   <script src="./scripts/invoiceService.js"></script>
   <script src="https://unpkg.com/pdf-lib"></script>
   <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
@@ -19,7 +19,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body>  
   <!-- Dashboard Menu -->
   <header class="global-sidebar">
     <div class="header">
@@ -206,27 +206,27 @@
 
       <div id="client-popup">
         <h2 id="client-popup-title">Add Client</h2>
-        <p>Enter the required information below</p>
+        <p id="client-popup-display">Enter the required information below</p>
         <form>
           <button id="close-button" aria-label="Close alert" type="button">
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="form-row">
-            <div>
+            <div class="input-control">
               <input type="text" id="name" name="fname" placeholder="Name" />
             </div>
 
-            <div>
+            <div class="input-control">
               <input type="number" id="amount" name="amount" placeholder="Amount" />
             </div>
           </div>
 
           <div class="form-row">
-            <div>
+            <div class="input-control">
               <input type="text" id="address" name="address" placeholder="Address" />
             </div>
 
-            <div>
+            <div class="input-control">
               <input type="text" id="city" name="city/zipcode" placeholder="City/Zipcode" />
             </div>
           </div>

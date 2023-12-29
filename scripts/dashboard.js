@@ -9,6 +9,7 @@ function init() {
 
     let close = document.getElementById("close-button");
     close.addEventListener("click", function () {
+        resetForm();
         hideForm();
     });
 
@@ -58,15 +59,56 @@ function hideForm() {
     document.querySelector('#client-popup form').reset();
 }
 
+function validateForm() {
+    let isValid = false; 
+    let message = []; 
+    let name = document.getElementById('name').value;
+    let address = document.getElementById('address').value;
+    let city = document.getElementById('city').value;
+    let amount = document.getElementById('amount').value;
+
+    if (name == '' || name == null){
+        setError('Name is required') 
+    } else if (address == '' || address == null) {
+        setError('Address is required'); 
+    } else if (city == '' || city == null) {
+        setError('City and ZipCode are required'); 
+    } else if (amount == '' || amount == null){
+        setError('Monthly Service cost is required'); 
+    } else {
+        resetForm(); 
+        return true; 
+    }
+
+    return isValid; 
+}
+
+function setError(message) {
+    let errorDisplay = document.getElementById('client-popup-display'); 
+    errorDisplay.textContent = message; 
+    errorDisplay.classList.add('error-display-text');
+}
+
+function resetForm () {
+    let errorDisplay = document.getElementById('client-popup-display'); 
+    errorDisplay.textContent = 'Enter the required information below'; 
+    errorDisplay.classList.remove('error-display-text');
+}
+
+
 function handleFormSubmission(e) {
     e.preventDefault();
+
+    if (!validateForm()){
+        return 
+    }
 
     let name = document.getElementById('name').value;
     let address = document.getElementById('address').value;
     let city = document.getElementById('city').value;
     let amount = document.getElementById('amount').value;
     let status = document.getElementById('status').value;
-
+    
     let clientData = {
         name: name,
         address: address,
