@@ -240,10 +240,15 @@ function updateBreakDownBar() {
     let totalRevenue = calculateTotalRevenue(clients);
     let monthlyRevenue = calculateMonthlyRevenue(clients);
     let percentage = (monthlyRevenue / totalRevenue) * 100;
-
+    
     let number = document.getElementById('number');
-    number.innerHTML = `${percentage.toFixed(0)}%`;
-
+    if (percentage === NaN){
+        percentage = 0; 
+        number.innerHTML = `${0}%`;
+    } else {
+        number.innerHTML = `${percentage.toFixed(0)}%`;
+    }
+    
     let newOffset = 435 - (435 * percentage / 100);
     updateKeyframes(newOffset);
 }
